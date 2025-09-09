@@ -1,5 +1,5 @@
 /*
- * Public API Surface of express
+ * Public API Surface of @ng-adm/express
  */
 
-export * from './lib/express';
+export { buildAdminRouter } from './lib/express';

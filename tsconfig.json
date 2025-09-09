@@ -3,21 +3,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "paths": {
-      "core": ["./dist/core", "./dist/core"],
-      "express": [
-        "./dist/express",
-        "./dist/express"
-      ],
-      "prisma": [
-        "./dist/prisma",
-        "./dist/prisma"
-      ],
-      "ui": [
-        "./dist/ui",
-        "./dist/ui"
-      ]
-    },
+    "paths": {},
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,

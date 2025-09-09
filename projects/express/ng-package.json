@@ -3,5 +3,6 @@
   "dest": "../../dist/express",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "allowedNonPeerDependencies": ["@ng-adm/core", "express"]
 }

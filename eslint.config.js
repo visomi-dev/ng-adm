@@ -100,18 +100,12 @@ module.exports = tseslint.config(
       'import-x/order': ['error', { 'newlines-between': 'always' }],
     },
     settings: {
-      'import-x/resolver-next': [
-        createTypeScriptImportResolver({
+      'import-x/resolver': {
+        typescript: {
           project: ['projects/*/tsconfig.{lib,app}.json'],
           alwaysTryTypes: true,
-          noWarnOnMultipleProjects: true,
-        }),
-        {
-          alias: {
-            '~/server': './projects/server/src',
-          },
         },
-      ],
+      },
     },
   },
   {
