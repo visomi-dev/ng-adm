@@ -8,6 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
+    "branchlint": "bun ./bin/branchlint.js",
     "prepare": "husky || true"
   },
   "private": true,
