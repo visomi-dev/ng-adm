@@ -9,49 +9,6 @@ An AdminJS-inspired Angular admin framework with PrimeNG UI and pluggable backen
 - `@ng-admin/prisma` – Prisma adapter
 - `@ng-admin/ui` – Angular standalone PrimeNG UI
 
-## Quick start (Express + Prisma)
-
-```ts
-import express from 'express';
-import bodyParser from 'body-parser';
-import { AdminAngular } from 'core';
-import { buildExpressRouter } from 'express';
-import { PrismaClient } from '@prisma/client';
-import { PrismaAdapter } from 'prisma';
-
-const prisma = new PrismaClient();
-const admin = new AdminAngular({
-  resources: [
-    {
-      id: 'user',
-      adapter: new PrismaAdapter(prisma.user, {
-        name: 'user',
-        label: 'Users',
-        fields: [
-          { name: 'id', type: 'number', isId: true, isVisible: true },
-          { name: 'email', type: 'string', isEditable: true },
-          { name: 'name', type: 'string', isEditable: true },
-        ],
-      }),
-    },
-  ],
-});
-
-const app = express();
-app.use(bodyParser.json());
-app.use(buildExpressRouter(admin, { basePath: '/admin' }));
-app.listen(3000);
-```
-
-## Embed UI in Angular routing
-
-```ts
-import { Routes } from '@angular/router';
-import { UiComponent } from 'ui';
-
-export const routes: Routes = [{ path: 'admin-panel', component: UiComponent }];
-```
-
 ## Development server
 
 To start a local development server, run:

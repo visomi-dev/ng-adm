@@ -1,0 +1,11 @@
+{
+  "name": "@ng-admin/core",
+  "version": "0.0.1",
+  "main": "./dist/fesm2022/ng-admin-core.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/fesm2022/ng-admin-core.mjs"
+    }
+  },
+  "sideEffects": false
+}

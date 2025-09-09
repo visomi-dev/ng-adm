@@ -4,7 +4,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
-      "core": ["./dist/core"],
+      "core": ["./dist/core", "./dist/core"],
       "express": ["./dist/express"],
       "prisma": ["./dist/prisma"],
       "ui": ["./dist/ui"]
@@ -35,18 +35,6 @@
     },
     {
       "path": "./projects/core/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/express/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/express/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/ui/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/ui/tsconfig.spec.json"
     }
   ]
 }
