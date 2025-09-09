@@ -67,6 +67,7 @@ export class AdminAngular {
       if (this.resourceIdToAdapter.has(resource.id)) {
         throw new Error(`Duplicate resource id: ${resource.id}`);
       }
+
       this.resourceIdToAdapter.set(resource.id, resource.adapter);
     }
   }
@@ -77,9 +78,11 @@ export class AdminAngular {
 
   getAdapter(resourceId: string): AdminAdapter<any, any> {
     const adapter = this.resourceIdToAdapter.get(resourceId);
+
     if (!adapter) {
       throw new Error(`Unknown resource: ${resourceId}`);
     }
+
     return adapter;
   }
 
@@ -91,6 +94,7 @@ export class AdminAngular {
         return { ...meta, id };
       }),
     );
+
     return metas;
   }
 }
