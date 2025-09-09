@@ -27,6 +27,9 @@ jobs:
         run: bun run build
 
       - name: Publish to npm
-        run: cd dist/core && npm publish
+        run: |
+          cd dist/core
+          npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
+          npm publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
