@@ -2,8 +2,6 @@ name: Release
 
 on:
   push:
-    branches:
-      - main
     tags:
       - 'v*'
 
@@ -24,12 +22,20 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: Build project
-        run: bun run build
+        run: |
+          bun run build core
 
       - name: Publish to npm
         run: |
-          cd dist/core
           npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
+          BASE_DIR=dist
+          cd $BASE_DIR/core
+          npm publish
+          cd $BASE_DIR/express
+          npm publish
+          cd $BASE_DIR/prisma
+          npm publish
+          cd $BASE_DIR/ui
           npm publish
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
