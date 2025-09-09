@@ -44,8 +44,9 @@ export class MemoryAdapter<T extends BaseRecord = BaseRecord>
   /**
    * List records with optional filtering, sorting, and pagination
    */
-  async list(context: ActionContext): Promise<{ data: T[]; total: number }> {
+  async list(context: ActionContext<T>): Promise<{ data: T[]; total: number }> {
     const { resource, params = {} } = context;
+
     const dataArray = this.getDataArray(resource.name);
 
     let filteredData = [...dataArray];
@@ -53,6 +54,7 @@ export class MemoryAdapter<T extends BaseRecord = BaseRecord>
     // Basic filtering support
     if (params['filter']) {
       const filter = params['filter'];
+
       filteredData = filteredData.filter((item) => {
         return Object.entries(filter).every(([key, value]) => {
           return (item as T)[key as keyof T] === value;
@@ -64,25 +66,37 @@ export class MemoryAdapter<T extends BaseRecord = BaseRecord>
     if (params['sortBy']) {
       const sortBy = params['sortBy'];
       const sortOrder = params['sortOrder'] === 'desc' ? -1 : 1;
+
       filteredData.sort((a, b) => {
         const aVal = (a as T)[sortBy as keyof T];
         const bVal = (b as T)[sortBy as keyof T];
-        if (aVal == null && bVal == null) return 0;
-        if (aVal == null) return sortOrder;
-        if (bVal == null) return -sortOrder;
+        if (aVal == null && bVal == null) {
+          return 0;
+        }
+
+        if (aVal == null) {
+          return sortOrder;
+        }
+
+        if (bVal == null) {
+          return -sortOrder;
+        }
+
         if (typeof aVal === 'string' && typeof bVal === 'string') {
           return aVal.localeCompare(bVal) * sortOrder;
         }
+
         if (typeof aVal === 'number' && typeof bVal === 'number') {
           return (aVal - bVal) * sortOrder;
         }
+
         return 0;
       });
     }
 
     // Basic pagination support
-    const page = params['page'] || 1;
-    const limit = params['limit'] || 10;
+    const page = params['page'] ?? 1;
+    const limit = params['limit'] ?? 10;
     const offset = (page - 1) * limit;
     const paginatedData = filteredData.slice(offset, offset + limit);
 
@@ -95,7 +109,7 @@ export class MemoryAdapter<T extends BaseRecord = BaseRecord>
   /**
    * Get a single record by ID
    */
-  async show(context: ActionContext, id: string | number): Promise<T> {
+  async show(context: ActionContext<T>, id: string | number): Promise<T> {
     const { resource } = context;
     const dataArray = this.getDataArray(resource.name);
     const numericId = typeof id === 'string' ? parseInt(id, 10) : id;
@@ -113,16 +127,13 @@ export class MemoryAdapter<T extends BaseRecord = BaseRecord>
   /**
    * Create a new record
    */
-  async create(
-    context: ActionContext,
-    data: Record<string, unknown>,
-  ): Promise<T> {
+  async create(context: ActionContext<T>, data: T): Promise<T> {
     const { resource } = context;
     const dataArray = this.getDataArray(resource.name);
 
     const newItem = {
       id: this.getNextId(resource.name),
-      ...(data as Partial<Omit<T, 'id' | 'createdAt' | 'updatedAt'>>),
+      ...(data as Omit<T, 'id' | 'createdAt' | 'updatedAt'>),
       createdAt: new Date(),
       updatedAt: new Date(),
     } as T;
@@ -135,9 +146,9 @@ export class MemoryAdapter<T extends BaseRecord = BaseRecord>
    * Update an existing record
    */
   async update(
-    context: ActionContext,
+    context: ActionContext<T>,
     id: string | number,
-    data: Record<string, unknown>,
+    data: T,
   ): Promise<T> {
     const { resource } = context;
     const dataArray = this.getDataArray(resource.name);
@@ -153,7 +164,7 @@ export class MemoryAdapter<T extends BaseRecord = BaseRecord>
 
     const updatedItem = {
       ...dataArray[index],
-      ...(data as Partial<Omit<T, 'id' | 'createdAt' | 'updatedAt'>>),
+      ...(data as Omit<T, 'id' | 'createdAt' | 'updatedAt'>),
       updatedAt: new Date(),
     } as T;
 
@@ -165,17 +176,22 @@ export class MemoryAdapter<T extends BaseRecord = BaseRecord>
   /**
    * Delete a record by ID
    */
-  async delete(context: ActionContext, id: string | number): Promise<boolean> {
+  async delete(
+    context: ActionContext<T>,
+    id: string | number,
+  ): Promise<boolean> {
     const { resource } = context;
     const dataArray = this.getDataArray(resource.name);
     const numericId = typeof id === 'string' ? parseInt(id, 10) : id;
 
     const index = dataArray.findIndex((item) => item.id === numericId);
+
     if (index === -1) {
       return false;
     }
 
     dataArray.splice(index, 1);
+
     return true;
   }
 

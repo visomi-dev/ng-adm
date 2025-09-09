@@ -5,9 +5,18 @@
   "compilerOptions": {
     "paths": {
       "core": ["./dist/core", "./dist/core"],
-      "express": ["./dist/express"],
-      "prisma": ["./dist/prisma"],
-      "ui": ["./dist/ui"]
+      "express": [
+        "./dist/express",
+        "./dist/express"
+      ],
+      "prisma": [
+        "./dist/prisma",
+        "./dist/prisma"
+      ],
+      "ui": [
+        "./dist/ui",
+        "./dist/ui"
+      ]
     },
     "strict": true,
     "noImplicitOverride": true,
@@ -35,6 +44,24 @@
     },
     {
       "path": "./projects/core/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/express/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/express/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/prisma/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/prisma/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/ui/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/ui/tsconfig.spec.json"
     }
   ]
 }

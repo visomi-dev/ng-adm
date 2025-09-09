@@ -1,2 +1,6 @@
 bun run lint
-bun run build
+
+bun run build core
+bun run build express
+bun run build prisma
+bun run build ui

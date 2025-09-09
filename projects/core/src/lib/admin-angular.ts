@@ -4,13 +4,15 @@ import { ResourceOptions } from './types';
  * Main AdminAngular class that manages resources for the admin framework
  */
 export class AdminAngular {
-  private resources = new Map<string, ResourceOptions>();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private resources = new Map<string, ResourceOptions<any>>();
 
   /**
    * Create a new AdminAngular instance
    * @param resources Optional array of resources to register immediately
    */
-  constructor(options?: { resources?: ResourceOptions[] }) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  constructor(options?: { resources?: ResourceOptions<any>[] }) {
     if (options?.resources) {
       this.registerResources(options.resources);
     }
@@ -20,12 +22,14 @@ export class AdminAngular {
    * Register a new resource with the admin framework
    * @param resource The resource options to register
    */
-  registerResource(resource: ResourceOptions): void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  registerResource(resource: ResourceOptions<any>): void;
 
   /**
    * Register multiple resources with the admin framework
    * @param resources Array of resource options to register
    */
+
   registerResource(resources: ResourceOptions[]): void;
 
   /**
@@ -33,7 +37,8 @@ export class AdminAngular {
    * @param resourceOrResources Single resource or array of resources to register
    */
   registerResource(
-    resourceOrResources: ResourceOptions | ResourceOptions[],
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    resourceOrResources: ResourceOptions<any> | ResourceOptions<any>[],
   ): void {
     if (Array.isArray(resourceOrResources)) {
       this.registerResources(resourceOrResources);
@@ -47,7 +52,8 @@ export class AdminAngular {
    * @param resources Array of resource options to register
    * @private
    */
-  private registerResources(resources: ResourceOptions[]): void {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private registerResources(resources: ResourceOptions<any>[]): void {
     const errors: string[] = [];
 
     for (const resource of resources) {
@@ -72,7 +78,8 @@ export class AdminAngular {
    * @param resource The resource options to register
    * @private
    */
-  private registerSingleResource(resource: ResourceOptions): void {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private registerSingleResource(resource: ResourceOptions<any>): void {
     if (this.resources.has(resource.name)) {
       throw new Error(
         `Resource with name '${resource.name}' is already registered`,
@@ -87,7 +94,8 @@ export class AdminAngular {
    * @param name The name of the resource to retrieve
    * @returns The resource options or undefined if not found
    */
-  getResource(name: string): ResourceOptions | undefined {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getResource(name: string): ResourceOptions<any> | undefined {
     return this.resources.get(name);
   }
 
@@ -95,7 +103,8 @@ export class AdminAngular {
    * Get all registered resources
    * @returns Array of all registered resource options
    */
-  getResources(): ResourceOptions[] {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getResources(): ResourceOptions<any>[] {
     return Array.from(this.resources.values());
   }
 
@@ -132,7 +141,8 @@ export class AdminAngular {
  * @returns A new AdminAngular instance
  */
 export function createAdminAngular(options?: {
-  resources?: ResourceOptions[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  resources?: ResourceOptions<any>[];
 }): AdminAngular {
   return new AdminAngular(options);
 }
