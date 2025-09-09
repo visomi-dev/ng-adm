@@ -1,4 +1,4 @@
-# @ng-admin/core
+# @ng-adm/core
 
 The core headless library for the Angular Admin framework, providing resource management and CRUD operations without any UI components.
 
@@ -13,7 +13,7 @@ The core headless library for the Angular Admin framework, providing resource ma
 ## Installation
 
 ```bash
-npm install @ng-admin/core
+npm install @ng-adm/core
 ```
 
 ## Usage
@@ -21,7 +21,7 @@ npm install @ng-admin/core
 ### Basic Setup
 
 ```typescript
-import { AdminAngular, MemoryAdapter, ResourceOptions } from '@ng-admin/core';
+import { AdminAngular, MemoryAdapter, ResourceOptions } from '@ng-adm/core';
 
 // Create admin instance
 const admin = new AdminAngular();

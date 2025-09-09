@@ -1,11 +1,27 @@
 {
-  "name": "@ng-admin/core",
-  "version": "0.0.1",
-  "main": "./dist/fesm2022/ng-admin-core.mjs",
+  "name": "@ng-adm/core",
+  "version": "0.0.2",
+  "private": false,
+  "author": "Michael V. <visomi.dev@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/visomi-dev/ng-adm.git"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/visomi-dev/ng-adm",
+  "keywords": [
+    "angular",
+    "admin",
+    "framework"
+  ],
+  "main": "./dist/fesm2022/ng-adm-core.mjs",
   "exports": {
     ".": {
-      "import": "./dist/fesm2022/ng-admin-core.mjs"
+      "import": "./dist/fesm2022/ng-adm-core.mjs"
     }
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  }
 }

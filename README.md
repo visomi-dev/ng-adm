@@ -4,10 +4,10 @@ An AdminJS-inspired Angular admin framework with PrimeNG UI and pluggable backen
 
 ## Packages
 
-- `@ng-admin/core` – resource metadata and `AdminAngular` class
-- `@ng-admin/express` – Express plugin exposing `/admin` CRUD endpoints
-- `@ng-admin/prisma` – Prisma adapter
-- `@ng-admin/ui` – Angular standalone PrimeNG UI
+- `@ng-adm/core` – resource metadata and `AdminAngular` class
+- `@ng-adm/express` – Express plugin exposing `/admin` CRUD endpoints
+- `@ng-adm/prisma` – Prisma adapter
+- `@ng-adm/ui` – Angular standalone PrimeNG UI
 
 ## Development server
 
