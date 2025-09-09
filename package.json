@@ -8,6 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
+    "build:all": "ng build core && ng build express && ng build prisma && ng build ui",
     "branchlint": "bun ./bin/branchlint.js",
     "prepare": "husky || true"
   },
