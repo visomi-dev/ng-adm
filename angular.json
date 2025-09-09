@@ -38,6 +38,114 @@
           }
         }
       }
+    },
+    "express": {
+      "projectType": "library",
+      "root": "projects/express",
+      "sourceRoot": "projects/express/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/express/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/express/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "projects/express/tsconfig.spec.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/express/**/*.ts",
+              "projects/express/**/*.html"
+            ],
+            "eslintConfig": "projects/express/eslint.config.js"
+          }
+        }
+      }
+    },
+    "prisma": {
+      "projectType": "library",
+      "root": "projects/prisma",
+      "sourceRoot": "projects/prisma/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/prisma/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/prisma/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "projects/prisma/tsconfig.spec.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/prisma/**/*.ts",
+              "projects/prisma/**/*.html"
+            ],
+            "eslintConfig": "projects/prisma/eslint.config.js"
+          }
+        }
+      }
+    },
+    "ui": {
+      "projectType": "library",
+      "root": "projects/ui",
+      "sourceRoot": "projects/ui/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ui/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ui/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "projects/ui/tsconfig.spec.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ui/**/*.ts",
+              "projects/ui/**/*.html"
+            ],
+            "eslintConfig": "projects/ui/eslint.config.js"
+          }
+        }
+      }
     }
   },
   "cli": {
