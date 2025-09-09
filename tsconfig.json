@@ -4,15 +4,10 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
-      "core": [
-        "./dist/core"
-      ],
-      "express": [
-        "./dist/express"
-      ],
-      "ui": [
-        "./dist/ui"
-      ]
+      "core": ["./dist/core"],
+      "express": ["./dist/express"],
+      "prisma": ["./dist/prisma"],
+      "ui": ["./dist/ui"]
     },
     "strict": true,
     "noImplicitOverride": true,

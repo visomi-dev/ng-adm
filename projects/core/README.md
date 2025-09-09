@@ -1,3 +1,32 @@
+## @ng-admin/core
+
+Core types and the `AdminAngular` entry class.
+
+Public API:
+
+```ts
+export type FieldType = 'string' | 'number' | 'boolean' | 'date' | 'enum' | 'relation';
+export interface FieldMetadata {
+  /* ... */
+}
+export interface ResourceMetadata {
+  /* ... */
+}
+export interface ListQuery {
+  /* ... */
+}
+export interface ListResult<T> {
+  total: number;
+  records: T[];
+}
+export interface AdminAdapter<T, Id> {
+  /* CRUD + metadata */
+}
+export class AdminAngular {
+  /* registry and helpers */
+}
+```
+
 # Core
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.2.0.
@@ -31,6 +60,7 @@ This command will compile your project, and the build artifacts will be placed i
 Once the project is built, you can publish your library by following these steps:
 
 1. Navigate to the `dist` directory:
+
    ```bash
    cd dist/core
    ```

@@ -1,6 +1,56 @@
 # NgAdmin
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.3.
+An AdminJS-inspired Angular admin framework with PrimeNG UI and pluggable backend.
+
+## Packages
+
+- `@ng-admin/core` – resource metadata and `AdminAngular` class
+- `@ng-admin/express` – Express plugin exposing `/admin` CRUD endpoints
+- `@ng-admin/prisma` – Prisma adapter
+- `@ng-admin/ui` – Angular standalone PrimeNG UI
+
+## Quick start (Express + Prisma)
+
+```ts
+import express from 'express';
+import bodyParser from 'body-parser';
+import { AdminAngular } from 'core';
+import { buildExpressRouter } from 'express';
+import { PrismaClient } from '@prisma/client';
+import { PrismaAdapter } from 'prisma';
+
+const prisma = new PrismaClient();
+const admin = new AdminAngular({
+  resources: [
+    {
+      id: 'user',
+      adapter: new PrismaAdapter(prisma.user, {
+        name: 'user',
+        label: 'Users',
+        fields: [
+          { name: 'id', type: 'number', isId: true, isVisible: true },
+          { name: 'email', type: 'string', isEditable: true },
+          { name: 'name', type: 'string', isEditable: true },
+        ],
+      }),
+    },
+  ],
+});
+
+const app = express();
+app.use(bodyParser.json());
+app.use(buildExpressRouter(admin, { basePath: '/admin' }));
+app.listen(3000);
+```
+
+## Embed UI in Angular routing
+
+```ts
+import { Routes } from '@angular/router';
+import { UiComponent } from 'ui';
+
+export const routes: Routes = [{ path: 'admin-panel', component: UiComponent }];
+```
 
 ## Development server
 

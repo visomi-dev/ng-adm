@@ -3,6 +3,7 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 ## TypeScript Best Practices
 
 - Use strict type checking
+- Always use type instead of interface
 - Prefer type inference when the type is obvious
 - Avoid the `any` type; use `unknown` when type is uncertain
 - Don't comment the code, use Self-Documenting Code

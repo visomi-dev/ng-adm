@@ -26,6 +26,16 @@
           "options": {
             "tsConfig": "projects/core/tsconfig.spec.json"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/core/**/*.ts",
+              "projects/core/**/*.html"
+            ],
+            "eslintConfig": "projects/core/eslint.config.js"
+          }
         }
       }
     },
@@ -52,6 +62,16 @@
           "options": {
             "tsConfig": "projects/express/tsconfig.spec.json"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/express/**/*.ts",
+              "projects/express/**/*.html"
+            ],
+            "eslintConfig": "projects/express/eslint.config.js"
+          }
         }
       }
     },
@@ -77,6 +97,52 @@
           "builder": "@angular/build:karma",
           "options": {
             "tsConfig": "projects/ui/tsconfig.spec.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ui/**/*.ts",
+              "projects/ui/**/*.html"
+            ],
+            "eslintConfig": "projects/ui/eslint.config.js"
+          }
+        }
+      }
+    },
+    "prisma": {
+      "projectType": "library",
+      "root": "projects/prisma",
+      "sourceRoot": "projects/prisma/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/prisma/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/prisma/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "projects/prisma/tsconfig.spec.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/prisma/**/*.ts",
+              "projects/prisma/**/*.html"
+            ],
+            "eslintConfig": "projects/prisma/eslint.config.js"
           }
         }
       }

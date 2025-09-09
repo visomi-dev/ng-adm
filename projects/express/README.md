@@ -1,3 +1,42 @@
+## @ng-admin/express
+
+Minimal Express router plugin for AdminAngular.
+
+Example usage:
+
+```ts
+import express from 'express';
+import bodyParser from 'body-parser';
+import { AdminAngular } from 'core';
+import { buildExpressRouter } from 'express';
+import { PrismaClient } from '@prisma/client';
+import { PrismaAdapter } from 'prisma';
+
+const prisma = new PrismaClient();
+
+const admin = new AdminAngular({
+  resources: [
+    {
+      id: 'user',
+      adapter: new PrismaAdapter(prisma.user, {
+        name: 'user',
+        label: 'Users',
+        fields: [
+          { name: 'id', type: 'number', isId: true, isVisible: true },
+          { name: 'email', type: 'string', isVisible: true, isEditable: true },
+          { name: 'name', type: 'string', isVisible: true, isEditable: true },
+        ],
+      }),
+    },
+  ],
+});
+
+const app = express();
+app.use(bodyParser.json());
+app.use(buildExpressRouter(admin, { basePath: '/admin' }));
+app.listen(3000);
+```
+
 # Express
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.2.0.
@@ -31,6 +70,7 @@ This command will compile your project, and the build artifacts will be placed i
 Once the project is built, you can publish your library by following these steps:
 
 1. Navigate to the `dist` directory:
+
    ```bash
    cd dist/express
    ```

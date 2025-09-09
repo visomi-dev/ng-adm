@@ -1,3 +1,18 @@
+## @ng-admin/ui
+
+Angular standalone UI component powered by PrimeNG.
+
+Embed under a route:
+
+```ts
+import { Routes } from '@angular/router';
+import { UiComponent } from 'ui';
+
+export const routes: Routes = [{ path: 'admin-panel', component: UiComponent }];
+```
+
+The component expects the backend at `/admin` (configurable in code if needed).
+
 # Ui
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.2.0.
@@ -31,6 +46,7 @@ This command will compile your project, and the build artifacts will be placed i
 Once the project is built, you can publish your library by following these steps:
 
 1. Navigate to the `dist` directory:
+
    ```bash
    cd dist/ui
    ```
