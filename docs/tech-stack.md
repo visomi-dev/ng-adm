@@ -59,7 +59,7 @@ elmanadeldia follows a **local-first** approach, meaning:
 
 Testing is not yet implemented but planned as:
 
-- **Unit Testing**: Angular TestBed + Jest or Vitest
+- **Unit Testing**: Angular TestBed + Karma
 - **E2E Testing**: Playwright (preferred over Cypress)
 - **Data Validation**: Zod (for client models if needed)
 
