@@ -1,12 +1,29 @@
 {
-  "name": "prisma",
+  "name": "@ng-adm/prisma",
   "version": "0.0.1",
+  "description": "Prisma adapter for ng-adm admin system",
+  "type": "module",
+  "main": "./dist/fesm2022/ng-adm-prisma.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/fesm2022/ng-adm-prisma.mjs"
+    }
+  },
   "peerDependencies": {
-    "@angular/common": "^20.2.0",
-    "@angular/core": "^20.2.0"
+    "@ng-adm/core": "^0.0.2",
+    "@prisma/client": "^6.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "keywords": [
+    "angular",
+    "admin",
+    "prisma",
+    "adapter",
+    "crud"
+  ],
+  "author": "visomi-dev",
+  "license": "MIT"
 }

@@ -7,12 +7,12 @@
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
-    "types": []
+    "inlineSourceMap": true,
+    "types": [],
+    "paths": {
+      "@ng-adm/core": ["../../dist/core"]
+    }
   },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "**/*.spec.ts"
-  ]
+  "include": ["src/**/*.ts"],
+  "exclude": ["**/*.spec.ts"]
 }

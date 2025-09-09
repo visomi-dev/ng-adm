@@ -10,7 +10,7 @@
         "@angular/forms": "^20.0.0",
         "@angular/platform-browser": "^20.0.0",
         "@angular/router": "^20.0.0",
-        "@ng-adm/core": "^0.0.2",
+        "@ng-adm/core": "^0.0.3",
         "@primeuix/themes": "^1.2.3",
         "express": "^5.1.0",
         "express-session": "^1.18.2",
@@ -410,7 +410,7 @@
 
     "@napi-rs/wasm-runtime": ["@napi-rs/wasm-runtime@1.0.3", "", { "dependencies": { "@emnapi/core": "^1.4.5", "@emnapi/runtime": "^1.4.5", "@tybys/wasm-util": "^0.10.0" } }, "sha512-rZxtMsLwjdXkMUGC3WwsPwLNVqVqnTJT6MNIB6e+5fhMcSCPP0AOsNWuMQ5mdCq6HNjs/ZeWAEchpqeprqBD2Q=="],
 
-    "@ng-adm/core": ["@ng-adm/core@0.0.2", "", { "dependencies": { "tslib": "^2.3.0" } }, "sha512-7eFyQ4fgRVIIdRSgbQ+J/0oEmJcGVmabN3n7eXAmXWNAPOFYR8lLnnQGWVcVhMY9RtVzHyPzmVb2SM0H3j5QLw=="],
+    "@ng-adm/core": ["@ng-adm/core@0.0.3", "", { "dependencies": { "tslib": "^2.3.0" } }, "sha512-mD+JFVsE8x9jhmSBijMfm5+CBoL10pce7Z+SfX7+CBZ4PP5zMgF77S8W7JOXg7+AbWuQb+fAG2GxWd9QDjT63g=="],
 
     "@nodelib/fs.scandir": ["@nodelib/fs.scandir@2.1.5", "", { "dependencies": { "@nodelib/fs.stat": "2.0.5", "run-parallel": "^1.1.9" } }, "sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g=="],
 
