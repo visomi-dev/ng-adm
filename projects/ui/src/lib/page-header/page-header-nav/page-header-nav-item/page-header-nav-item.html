@@ -1,1 +1,14 @@
-<p>page-header-nav-item works!</p>
+@if (external()) {
+  <a
+    [href]="href()"
+    [class]="classComputed()"
+    [target]="target()"
+    rel="noopener noreferrer"
+  >
+    {{ label() }}
+  </a>
+} @else {
+  <a [routerLink]="href()" [class]="classComputed()">
+    {{ label() }}
+  </a>
+}
