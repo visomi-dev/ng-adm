@@ -1,0 +1,312 @@
+<!-- Main Container with custom font and background -->
+<div
+  class="max-w-full overflow-x-hidden bg-[#FDF7F8] font-sans text-gray-800 antialiased"
+>
+  <!-- Header -->
+  <header
+    class="fixed top-0 right-0 left-0 z-50 max-w-full bg-white/80 shadow-sm backdrop-blur-md"
+  >
+    <div class="container mx-auto flex items-center justify-between px-6 py-4">
+      <h1 class="text-2xl font-bold tracking-wider text-[#9D3C5F]">
+        El Maná del Día
+      </h1>
+
+      <nav class="hidden items-center space-x-8 md:flex">
+        <a
+          href="#"
+          class="text-gray-600 transition-colors duration-300 hover:text-[#B94A74]"
+        >
+          Inicio
+        </a>
+
+        <a
+          href="#menu"
+          class="text-gray-600 transition-colors duration-300 hover:text-[#B94A74]"
+        >
+          Menú
+        </a>
+
+        <a
+          href="#nosotros"
+          class="text-gray-600 transition-colors duration-300 hover:text-[#B94A74]"
+        >
+          Sobre Nosotros
+        </a>
+
+        <a
+          href="#contacto"
+          class="text-gray-600 transition-colors duration-300 hover:text-[#B94A74]"
+        >
+          Contacto
+        </a>
+      </nav>
+
+      <button
+        (click)="toggleMenu()"
+        class="text-gray-700 focus:outline-none md:hidden"
+        aria-label="Abrir menú"
+      >
+        <svg
+          class="h-6 w-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16m-7 6h7"
+          ></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    @if (isMenuOpen()) {
+      <div class="bg-white md:hidden">
+        <nav class="flex flex-col items-center space-y-4 p-4">
+          <a
+            href="#"
+            class="text-gray-600 transition-colors duration-300 hover:text-[#B94A74]"
+          >
+            Inicio
+          </a>
+
+          <a
+            href="#menu"
+            class="text-gray-600 transition-colors duration-300 hover:text-[#B94A74]"
+          >
+            Menú
+          </a>
+
+          <a
+            href="#nosotros"
+            class="text-gray-600 transition-colors duration-300 hover:text-[#B94A74]"
+          >
+            Sobre Nosotros
+          </a>
+
+          <a
+            href="#contacto"
+            class="text-gray-600 transition-colors duration-300 hover:text-[#B94A74]"
+          >
+            Contacto
+          </a>
+        </nav>
+      </div>
+    }
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="py-24">
+      <div
+        class="container mx-auto grid items-center gap-8 px-6 md:grid-cols-2"
+      >
+        <div class="text-center md:text-left">
+          <h2
+            class="mb-4 font-serif text-4xl leading-tight text-[#9D3C5F] md:text-6xl"
+          >
+            Dulces Creaciones, Sabor Celestial
+          </h2>
+          <p class="mb-8 text-lg text-gray-600">
+            Hechos a mano con amor y horneados frescos todos los días para
+            deleitar tu paladar. Cada bocado es una experiencia única.
+          </p>
+          <a
+            href="#menu"
+            class="inline-block transform rounded-full bg-[#B94A74] px-8 py-3 font-bold text-white shadow-lg transition-transform duration-300 hover:scale-105 hover:bg-[#A34166]"
+          >
+            Explora el Menú
+          </a>
+
+          <p-button label="Submit" />
+        </div>
+
+        <div class="relative">
+          <div
+            class="absolute inset-0 scale-105 -rotate-12 transform rounded-full bg-pink-100"
+          ></div>
+
+          <img
+            src="https://placehold.co/600x600/F8DDE6/9D3C5F?text=Postre+Exquisito"
+            alt="Un postre exquisito y delicado"
+            class="relative h-auto w-full rounded-full object-cover shadow-2xl"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section id="menu" class="bg-white py-20">
+      <div class="container mx-auto px-6 text-center">
+        <h3 class="mb-2 font-serif text-3xl text-[#9D3C5F]">
+          Nuestros Favoritos
+        </h3>
+        <p class="mx-auto mb-12 max-w-2xl text-gray-500">
+          Una selección de nuestras creaciones más populares, amadas por todos
+          nuestros clientes.
+        </p>
+
+        <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          @for (product of products; track product.name) {
+            <div
+              class="transform overflow-hidden rounded-lg bg-white shadow-lg transition-transform duration-300 hover:-translate-y-2"
+            >
+              <img
+                [src]="product.image"
+                [alt]="product.name"
+                class="h-56 w-full object-cover"
+              />
+              <div class="p-6">
+                <h4 class="mb-2 text-xl font-semibold text-gray-800">
+                  {{ product.name }}
+                </h4>
+                <p class="mb-4 text-sm text-gray-600">
+                  {{ product.description }}
+                </p>
+                <span class="text-lg font-bold text-[#B94A74]">{{
+                  product.price
+                }}</span>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="nosotros" class="py-20">
+      <div
+        class="container mx-auto grid items-center gap-12 px-6 md:grid-cols-2"
+      >
+        <div class="relative order-2 md:order-1">
+          <div
+            class="absolute inset-0 rotate-6 transform rounded-lg bg-pink-100"
+          ></div>
+          <img
+            src="https://placehold.co/600x700/F8DDE6/9D3C5F?text=Nuestra+Pasi%C3%B3n"
+            alt="Ingredientes frescos y de alta calidad para postres"
+            class="relative h-auto w-full rounded-lg object-cover shadow-xl"
+          />
+        </div>
+        <div class="order-1 text-center md:order-2 md:text-left">
+          <h3 class="mb-4 font-serif text-3xl text-[#9D3C5F]">
+            La Pasión en Cada Bocado
+          </h3>
+          <p class="mb-6 leading-relaxed text-gray-600">
+            En "El Maná del Día", creemos que los postres son más que un
+            capricho; son una experiencia. Usamos solo los ingredientes más
+            finos y frescos, combinando técnicas tradicionales con un toque de
+            innovación para crear delicias que no solo se ven hermosas, sino que
+            saben a gloria.
+          </p>
+          <p class="leading-relaxed text-gray-600">
+            Nuestra misión es endulzar tus días y celebrar tus momentos
+            especiales con postres inolvidables.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="bg-white py-20">
+      <div class="container mx-auto px-6 text-center">
+        <h3 class="mb-12 font-serif text-3xl text-[#9D3C5F]">
+          Lo Que Dicen Nuestros Clientes
+        </h3>
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+          @for (testimonial of testimonials; track testimonial.name) {
+            <div class="rounded-xl bg-[#FDF7F8] p-8 shadow-md">
+              <p class="mb-6 text-gray-600 italic">"{{ testimonial.quote }}"</p>
+              <div class="font-bold text-gray-700">
+                - {{ testimonial.name }}
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer id="contacto" class="bg-[#5D2339] text-gray-100">
+    <div class="container mx-auto px-6 py-12">
+      <div
+        class="grid grid-cols-1 gap-8 text-center md:grid-cols-3 md:text-left"
+      >
+        <div>
+          <h4 class="mb-4 text-xl font-bold text-white">El Maná del Día</h4>
+          <p class="text-sm text-gray-300">
+            Endulzando tus momentos desde 2024.
+          </p>
+        </div>
+        <div>
+          <h4 class="mb-4 text-xl font-bold text-white">Contacto</h4>
+          <p class="text-sm text-gray-300">
+            Email:
+
+            <a href="mailto:hola&#64;elmana.com" class="hover:underline">
+              hola&#64;elmanadeldia.com
+            </a>
+          </p>
+
+          <p class="text-sm text-gray-300">Teléfono: (55) 1234-5678</p>
+        </div>
+
+        <div>
+          <h4 class="mb-4 text-xl font-bold text-white">Síguenos</h4>
+          <div class="flex justify-center space-x-4 md:justify-start">
+            <a
+              href="#"
+              aria-label="Facebook"
+              class="text-gray-300 transition-colors hover:text-white"
+            >
+              <svg
+                class="h-6 w-6"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </a>
+
+            <a
+              href="#"
+              aria-label="Instagram"
+              class="text-gray-300 transition-colors hover:text-white"
+              ><svg
+                class="h-6 w-6"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.024.06 1.378.06 3.808s-.012 2.784-.06 3.808c-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.024.048-1.378.06-3.808.06s-2.784-.012-3.808-.06c-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.048-1.024-.06-1.378-.06-3.808s.012-2.784.06-3.808c.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 016.345 2.525c.636-.247 1.363-.416 2.427-.465C9.795 2.013 10.148 2 12.315 2zm-1.161 4.873a.872.872 0 10-1.742 0 .872.872 0 001.742 0zm4.805 1.332a.872.872 0 100-1.742.872.872 0 000 1.742zM12 6.848c-2.827 0-5.122 2.295-5.122 5.122s2.295 5.122 5.122 5.122 5.122-2.295 5.122-5.122S14.827 6.848 12 6.848zm0 8.482a3.36 3.36 0 110-6.72 3.36 3.36 0 010 6.72z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="mt-8 border-t border-gray-600 pt-8 text-center text-sm text-gray-400"
+      >
+        <p>
+          &copy; {{ currentYear }} El Maná del Día. Todos los derechos
+          reservados.
+        </p>
+      </div>
+    </div>
+  </footer>
+</div>

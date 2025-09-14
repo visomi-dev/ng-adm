@@ -1,17 +1,18 @@
-import { PrismaAdapter, createPrismaAdapter } from './prisma';
 import { ResourceOptions, PropertyOptions, ActionContext } from '@ng-adm/core';
 
+import { PrismaAdapter, createPrismaAdapter } from './prisma';
+
 // Mock Prisma client
-type MockPrismaClient = {
-  [key: string]: {
-    findMany: jasmine.Spy;
-    findUnique: jasmine.Spy;
-    create: jasmine.Spy;
-    update: jasmine.Spy;
-    delete: jasmine.Spy;
-    count: jasmine.Spy;
-  };
+type MockPrismaModel = {
+  findMany: jasmine.Spy;
+  findUnique: jasmine.Spy;
+  create: jasmine.Spy;
+  update: jasmine.Spy;
+  delete: jasmine.Spy;
+  count: jasmine.Spy;
 };
+
+type MockPrismaClient = Record<string, MockPrismaModel>;
 
 type TestRecord = {
   id: number;
@@ -24,7 +25,7 @@ type TestRecord = {
 describe('PrismaAdapter', () => {
   let adapter: PrismaAdapter<TestRecord>;
   let mockClient: MockPrismaClient;
-  let mockModel: any;
+  let mockModel: MockPrismaModel;
   let mockResource: ResourceOptions<TestRecord>;
   let context: ActionContext<TestRecord>;
 
@@ -72,8 +73,13 @@ describe('PrismaAdapter', () => {
     });
 
     it('should store client and model name', () => {
-      expect((adapter as any).client).toBe(mockClient);
-      expect((adapter as any).modelName).toBe('users');
+      // Type assertion to access private properties for testing
+      const adapterPrivate = adapter as unknown as {
+        client: MockPrismaClient;
+        modelName: string;
+      };
+      expect(adapterPrivate.client).toBe(mockClient);
+      expect(adapterPrivate.modelName).toBe('users');
     });
   });
 
@@ -132,7 +138,7 @@ describe('PrismaAdapter', () => {
         params: { sortBy: 'name', sortOrder: 'desc' },
       };
 
-      const result = await adapter.list(sortedContext);
+      const _result = await adapter.list(sortedContext);
 
       expect(mockModel.findMany).toHaveBeenCalledWith({
         where: {},
@@ -152,7 +158,7 @@ describe('PrismaAdapter', () => {
         params: { filters: { active: true } },
       };
 
-      const result = await adapter.list(filteredContext);
+      const _result = await adapter.list(filteredContext);
 
       expect(mockModel.findMany).toHaveBeenCalledWith({
         where: { active: true },
@@ -184,7 +190,7 @@ describe('PrismaAdapter', () => {
         await adapter.show(context, 999);
         fail('Expected to throw an error');
       } catch (error) {
-        expect(error.message).toBe('Record with id 999 not found');
+        expect((error as Error).message).toBe('Record with id 999 not found');
       }
     });
   });
@@ -264,7 +270,7 @@ describe('PrismaAdapter', () => {
         await adapter.list(context);
         fail('Expected to throw an error');
       } catch (error) {
-        expect(error.message).toBe('Database connection error');
+        expect((error as Error).message).toBe('Database connection error');
       }
     });
 
@@ -275,7 +281,7 @@ describe('PrismaAdapter', () => {
         await adapter.show(context, 1);
         fail('Expected to throw an error');
       } catch (error) {
-        expect(error.message).toBe('Database error');
+        expect((error as Error).message).toBe('Database error');
       }
     });
   });

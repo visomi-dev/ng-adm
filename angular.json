@@ -60,7 +60,40 @@
         "test": {
           "builder": "@angular/build:karma",
           "options": {
-            "tsConfig": "projects/express/tsconfig.spec.json"
+            "tsConfig": "projects/express/tsconfig.spec.json",
+            "externalDependencies": [
+              "@ng-adm/core",
+              "express",
+              "express-session",
+              "crypto",
+              "fs",
+              "path",
+              "util",
+              "events",
+              "http",
+              "url",
+              "querystring",
+              "buffer",
+              "stream",
+              "zlib",
+              "string_decoder",
+              "node:http",
+              "node:path",
+              "node:fs",
+              "node:events",
+              "node:net",
+              "node:zlib",
+              "mime-types",
+              "on-headers",
+              "parseurl",
+              "random-bytes",
+              "raw-body",
+              "router",
+              "safe-buffer",
+              "safer-buffer",
+              "send",
+              "serve-static"
+            ]
           }
         },
         "lint": {
@@ -96,7 +129,30 @@
         "test": {
           "builder": "@angular/build:karma",
           "options": {
-            "tsConfig": "projects/prisma/tsconfig.spec.json"
+            "tsConfig": "projects/prisma/tsconfig.spec.json",
+            "externalDependencies": [
+              "@ng-adm/core",
+              "@prisma/client",
+              "prisma",
+              "crypto",
+              "fs",
+              "path",
+              "util",
+              "events",
+              "http",
+              "url",
+              "querystring",
+              "buffer",
+              "stream",
+              "zlib",
+              "string_decoder",
+              "node:http",
+              "node:path",
+              "node:fs",
+              "node:events",
+              "node:net",
+              "node:zlib"
+            ]
           }
         },
         "lint": {
@@ -143,6 +199,42 @@
               "projects/ui/**/*.html"
             ],
             "eslintConfig": "projects/ui/eslint.config.js"
+          }
+        }
+      }
+    },
+    "page-builder": {
+      "projectType": "library",
+      "root": "projects/page-builder",
+      "sourceRoot": "projects/page-builder/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/page-builder/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/page-builder/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "projects/page-builder/tsconfig.spec.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/page-builder/**/*.ts",
+              "projects/page-builder/**/*.html"
+            ],
+            "eslintConfig": "projects/page-builder/eslint.config.js"
           }
         }
       }

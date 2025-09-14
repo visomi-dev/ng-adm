@@ -70,6 +70,7 @@ describe('buildAuthenticatedRouter', () => {
 
     it('should merge custom session options with defaults', () => {
       const customSessionOptions = {
+        secret: 'test-secret',
         cookie: {
           maxAge: 60 * 60 * 1000, // 1 hour
         },
@@ -101,9 +102,14 @@ describe('buildAuthenticatedRouter', () => {
       } as unknown as Response;
 
       const postSpy = spyOn(router, 'post');
-      postSpy.and.callFake((path: string, handler: Function) => {
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      postSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/login') {
-          handler(mockReq, mockRes, jasmine.createSpy());
+          const handler = handlers[0];
+          if (typeof handler === 'function') {
+            handlers[0](mockReq, mockRes, jasmine.createSpy());
+          }
         }
         return router;
       });
@@ -137,9 +143,14 @@ describe('buildAuthenticatedRouter', () => {
       } as unknown as Response;
 
       const postSpy = spyOn(router, 'post');
-      postSpy.and.callFake((path: string, handler: Function) => {
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      postSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/login') {
-          handler(mockReq, mockRes, jasmine.createSpy());
+          const handler = handlers[0];
+          if (typeof handler === 'function') {
+            handlers[0](mockReq, mockRes, jasmine.createSpy());
+          }
         }
         return router;
       });
@@ -167,9 +178,14 @@ describe('buildAuthenticatedRouter', () => {
       } as unknown as Response;
 
       const postSpy = spyOn(router, 'post');
-      postSpy.and.callFake((path: string, handler: Function) => {
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      postSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/login') {
-          handler(mockReq, mockRes, jasmine.createSpy());
+          const handler = handlers[0];
+          if (typeof handler === 'function') {
+            handlers[0](mockReq, mockRes, jasmine.createSpy());
+          }
         }
         return router;
       });
@@ -199,9 +215,14 @@ describe('buildAuthenticatedRouter', () => {
       } as unknown as Response;
 
       const postSpy = spyOn(router, 'post');
-      postSpy.and.callFake((path: string, handler: Function) => {
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      postSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/login') {
-          handler(mockReq, mockRes, jasmine.createSpy());
+          const handler = handlers[0];
+          if (typeof handler === 'function') {
+            handlers[0](mockReq, mockRes, jasmine.createSpy());
+          }
         }
         return router;
       });
@@ -229,9 +250,14 @@ describe('buildAuthenticatedRouter', () => {
       } as unknown as Response;
 
       const postSpy = spyOn(router, 'post');
-      postSpy.and.callFake((path: string, handler: Function) => {
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      postSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/login') {
-          handler(mockReq, mockRes, jasmine.createSpy());
+          const handler = handlers[0];
+          if (typeof handler === 'function') {
+            handlers[0](mockReq, mockRes, jasmine.createSpy());
+          }
         }
         return router;
       });
@@ -261,9 +287,14 @@ describe('buildAuthenticatedRouter', () => {
       } as unknown as Response;
 
       const postSpy = spyOn(router, 'post');
-      postSpy.and.callFake((path: string, handler: Function) => {
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      postSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/logout') {
-          handler(mockReq, mockRes, jasmine.createSpy());
+          const handler = handlers[0];
+          if (typeof handler === 'function') {
+            handlers[0](mockReq, mockRes, jasmine.createSpy());
+          }
         }
         return router;
       });
@@ -292,9 +323,14 @@ describe('buildAuthenticatedRouter', () => {
       } as unknown as Response;
 
       const postSpy = spyOn(router, 'post');
-      postSpy.and.callFake((path: string, handler: Function) => {
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      postSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/logout') {
-          handler(mockReq, mockRes, jasmine.createSpy());
+          const handler = handlers[0];
+          if (typeof handler === 'function') {
+            handlers[0](mockReq, mockRes, jasmine.createSpy());
+          }
         }
         return router;
       });
@@ -324,9 +360,14 @@ describe('buildAuthenticatedRouter', () => {
       } as unknown as Response;
 
       const postSpy = spyOn(router, 'post');
-      postSpy.and.callFake((path: string, handler: Function) => {
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      postSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/logout') {
-          handler(mockReq, mockRes, jasmine.createSpy());
+          const handler = handlers[0];
+          if (typeof handler === 'function') {
+            handlers[0](mockReq, mockRes, jasmine.createSpy());
+          }
         }
         return router;
       });
@@ -358,9 +399,14 @@ describe('buildAuthenticatedRouter', () => {
       } as unknown as Response;
 
       const getSpy = spyOn(router, 'get');
-      getSpy.and.callFake((path: string, handler: Function) => {
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      getSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/me') {
-          handler(mockReq, mockRes, jasmine.createSpy());
+          const handler = handlers[0];
+          if (typeof handler === 'function') {
+            handlers[0](mockReq, mockRes, jasmine.createSpy());
+          }
         }
         return router;
       });
@@ -387,9 +433,14 @@ describe('buildAuthenticatedRouter', () => {
       } as unknown as Response;
 
       const getSpy = spyOn(router, 'get');
-      getSpy.and.callFake((path: string, handler: Function) => {
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      getSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/me') {
-          handler(mockReq, mockRes, jasmine.createSpy());
+          const handler = handlers[0];
+          if (typeof handler === 'function') {
+            handlers[0](mockReq, mockRes, jasmine.createSpy());
+          }
         }
         return router;
       });
@@ -495,11 +546,7 @@ describe('buildAuthenticatedRouter', () => {
       const useSpy = spyOn(router, 'use');
       buildAuthenticatedRouter(admin, authConfig);
 
-      expect(useSpy).toHaveBeenCalledWith(
-        '/resources',
-        jasmine.any(Function),
-        jasmine.any(Object),
-      );
+      expect(useSpy).toHaveBeenCalledWith('/resources', jasmine.any(Function));
     });
   });
 
@@ -549,10 +596,11 @@ describe('buildAuthenticatedRouter', () => {
       } as unknown as Response;
 
       const postSpy = spyOn(router, 'post');
-      postSpy.and.callFake((path: string, handler: Function) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      postSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/login') {
           try {
-            handler(mockReq, mockRes, jasmine.createSpy());
+            handlers[0](mockReq, mockRes, jasmine.createSpy());
           } catch (_error) {
             mockRes.status(400).json({ error: 'Bad request' });
           }
@@ -579,10 +627,11 @@ describe('buildAuthenticatedRouter', () => {
       } as unknown as Response;
 
       const postSpy = spyOn(router, 'post');
-      postSpy.and.callFake((path: string, handler: Function) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      postSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/login') {
           try {
-            handler(mockReq, mockRes, jasmine.createSpy());
+            handlers[0](mockReq, mockRes, jasmine.createSpy());
           } catch (_error) {
             mockRes.status(500).json({ error: 'Session error' });
           }

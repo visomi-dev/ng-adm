@@ -60,9 +60,14 @@ describe('buildAdminRouter', () => {
 
       // Mock router.get to capture the handler
       const getSpy = spyOn(router, 'get');
-      getSpy.and.callFake((path: string, handler: Function) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      getSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources') {
-          handler(mockReq, mockRes, jasmine.createSpy());
+          const handler = handlers[0];
+          if (typeof handler === 'function') {
+            handler(mockReq, mockRes, jasmine.createSpy());
+          }
         }
         return router;
       });
@@ -91,9 +96,14 @@ describe('buildAdminRouter', () => {
 
       const errorRouter = buildAdminRouter(errorAdmin);
       const getSpy = spyOn(errorRouter, 'get');
-      getSpy.and.callFake((path: string, handler: Function) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      getSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources') {
-          handler(mockReq, mockRes, jasmine.createSpy());
+          const handler = handlers[0];
+          if (typeof handler === 'function') {
+            handler(mockReq, mockRes, jasmine.createSpy());
+          }
         }
         return errorRouter;
       });
@@ -117,9 +127,14 @@ describe('buildAdminRouter', () => {
       } as unknown as Response;
 
       const getSpy = spyOn(router, 'get');
-      getSpy.and.callFake((path: string, handler: Function) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      getSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name') {
-          handler(mockReq, mockRes, jasmine.createSpy());
+          const handler = handlers[0];
+          if (typeof handler === 'function') {
+            handler(mockReq, mockRes, jasmine.createSpy());
+          }
         }
         return router;
       });
@@ -145,9 +160,14 @@ describe('buildAdminRouter', () => {
       } as unknown as Response;
 
       const getSpy = spyOn(router, 'get');
-      getSpy.and.callFake((path: string, handler: Function) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      getSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name') {
-          handler(mockReq, mockRes, jasmine.createSpy());
+          const handler = handlers[0];
+          if (typeof handler === 'function') {
+            handler(mockReq, mockRes, jasmine.createSpy());
+          }
         }
         return router;
       });
@@ -180,9 +200,14 @@ describe('buildAdminRouter', () => {
 
       const errorRouter = buildAdminRouter(errorAdmin);
       const getSpy = spyOn(errorRouter, 'get');
-      getSpy.and.callFake((path: string, handler: Function) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      getSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name') {
-          handler(mockReq, mockRes, jasmine.createSpy());
+          const handler = handlers[0];
+          if (typeof handler === 'function') {
+            handler(mockReq, mockRes, jasmine.createSpy());
+          }
         }
         return errorRouter;
       });
@@ -213,9 +238,14 @@ describe('buildAdminRouter', () => {
       } as unknown as Response;
 
       const getSpy = spyOn(router, 'get');
-      getSpy.and.callFake((path: string, handler: Function) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      getSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name/list') {
-          handler(mockReq, mockRes, jasmine.createSpy());
+          const handler = handlers[0];
+          if (typeof handler === 'function') {
+            handler(mockReq, mockRes, jasmine.createSpy());
+          }
         }
         return router;
       });
@@ -249,9 +279,14 @@ describe('buildAdminRouter', () => {
       } as unknown as Response;
 
       const getSpy = spyOn(router, 'get');
-      getSpy.and.callFake((path: string, handler: Function) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      getSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name/list') {
-          handler(mockReq, mockRes, jasmine.createSpy());
+          const handler = handlers[0];
+          if (typeof handler === 'function') {
+            handler(mockReq, mockRes, jasmine.createSpy());
+          }
         }
         return router;
       });
@@ -278,9 +313,14 @@ describe('buildAdminRouter', () => {
       } as unknown as Response;
 
       const getSpy = spyOn(router, 'get');
-      getSpy.and.callFake((path: string, handler: Function) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      getSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name/list') {
-          handler(mockReq, mockRes, jasmine.createSpy());
+          const handler = handlers[0];
+          if (typeof handler === 'function') {
+            handler(mockReq, mockRes, jasmine.createSpy());
+          }
         }
         return router;
       });
@@ -309,9 +349,14 @@ describe('buildAdminRouter', () => {
       } as unknown as Response;
 
       const getSpy = spyOn(router, 'get');
-      getSpy.and.callFake((path: string, handler: Function) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      getSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name/:id') {
-          handler(mockReq, mockRes, jasmine.createSpy());
+          const handler = handlers[0];
+          if (typeof handler === 'function') {
+            handler(mockReq, mockRes, jasmine.createSpy());
+          }
         }
         return router;
       });
@@ -334,9 +379,14 @@ describe('buildAdminRouter', () => {
       } as unknown as Response;
 
       const getSpy = spyOn(router, 'get');
-      getSpy.and.callFake((path: string, handler: Function) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      getSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name/:id') {
-          handler(mockReq, mockRes, jasmine.createSpy());
+          const handler = handlers[0];
+          if (typeof handler === 'function') {
+            handler(mockReq, mockRes, jasmine.createSpy());
+          }
         }
         return router;
       });
@@ -367,9 +417,14 @@ describe('buildAdminRouter', () => {
       } as unknown as Response;
 
       const postSpy = spyOn(router, 'post');
-      postSpy.and.callFake((path: string, handler: Function) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      postSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name') {
-          handler(mockReq, mockRes, jasmine.createSpy());
+          const handler = handlers[0];
+          if (typeof handler === 'function') {
+            handler(mockReq, mockRes, jasmine.createSpy());
+          }
         }
         return router;
       });
@@ -394,9 +449,14 @@ describe('buildAdminRouter', () => {
       } as unknown as Response;
 
       const postSpy = spyOn(router, 'post');
-      postSpy.and.callFake((path: string, handler: Function) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      postSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name') {
-          handler(mockReq, mockRes, jasmine.createSpy());
+          const handler = handlers[0];
+          if (typeof handler === 'function') {
+            handler(mockReq, mockRes, jasmine.createSpy());
+          }
         }
         return router;
       });
@@ -434,9 +494,14 @@ describe('buildAdminRouter', () => {
       } as unknown as Response;
 
       const putSpy = spyOn(router, 'put');
-      putSpy.and.callFake((path: string, handler: Function) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      putSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name/:id') {
-          handler(mockReq, mockRes, jasmine.createSpy());
+          const handler = handlers[0];
+          if (typeof handler === 'function') {
+            handler(mockReq, mockRes, jasmine.createSpy());
+          }
         }
         return router;
       });
@@ -460,9 +525,14 @@ describe('buildAdminRouter', () => {
       } as unknown as Response;
 
       const putSpy = spyOn(router, 'put');
-      putSpy.and.callFake((path: string, handler: Function) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      putSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name/:id') {
-          handler(mockReq, mockRes, jasmine.createSpy());
+          const handler = handlers[0];
+          if (typeof handler === 'function') {
+            handler(mockReq, mockRes, jasmine.createSpy());
+          }
         }
         return router;
       });
@@ -496,9 +566,14 @@ describe('buildAdminRouter', () => {
       } as unknown as Response;
 
       const deleteSpy = spyOn(router, 'delete');
-      deleteSpy.and.callFake((path: string, handler: Function) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      deleteSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name/:id') {
-          handler(mockReq, mockRes, jasmine.createSpy());
+          const handler = handlers[0];
+          if (typeof handler === 'function') {
+            handler(mockReq, mockRes, jasmine.createSpy());
+          }
         }
         return router;
       });
@@ -522,9 +597,14 @@ describe('buildAdminRouter', () => {
       } as unknown as Response;
 
       const deleteSpy = spyOn(router, 'delete');
-      deleteSpy.and.callFake((path: string, handler: Function) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      deleteSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name/:id') {
-          handler(mockReq, mockRes, jasmine.createSpy());
+          const handler = handlers[0];
+          if (typeof handler === 'function') {
+            handler(mockReq, mockRes, jasmine.createSpy());
+          }
         }
         return router;
       });
@@ -550,9 +630,14 @@ describe('buildAdminRouter', () => {
       } as unknown as Response;
 
       const deleteSpy = spyOn(router, 'delete');
-      deleteSpy.and.callFake((path: string, handler: Function) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      deleteSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name/:id') {
-          handler(mockReq, mockRes, jasmine.createSpy());
+          const handler = handlers[0];
+          if (typeof handler === 'function') {
+            handler(mockReq, mockRes, jasmine.createSpy());
+          }
         }
         return router;
       });
@@ -608,9 +693,14 @@ describe('buildAdminRouter', () => {
 
       const errorRouter = buildAdminRouter(errorAdmin);
       const getSpy = spyOn(errorRouter, 'get');
-      getSpy.and.callFake((path: string, handler: Function) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      getSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name/list') {
-          handler(mockReq, mockRes, jasmine.createSpy());
+          const handler = handlers[0];
+          if (typeof handler === 'function') {
+            handler(mockReq, mockRes, jasmine.createSpy());
+          }
         }
         return errorRouter;
       });
@@ -649,9 +739,14 @@ describe('buildAdminRouter', () => {
 
       const errorRouter = buildAdminRouter(errorAdmin);
       const getSpy = spyOn(errorRouter, 'get');
-      getSpy.and.callFake((path: string, handler: Function) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      getSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name/list') {
-          handler(mockReq, mockRes, jasmine.createSpy());
+          const handler = handlers[0];
+          if (typeof handler === 'function') {
+            handler(mockReq, mockRes, jasmine.createSpy());
+          }
         }
         return errorRouter;
       });
@@ -690,9 +785,14 @@ describe('buildAdminRouter', () => {
 
       const errorRouter = buildAdminRouter(errorAdmin);
       const getSpy = spyOn(errorRouter, 'get');
-      getSpy.and.callFake((path: string, handler: Function) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      getSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name/list') {
-          handler(mockReq, mockRes, jasmine.createSpy());
+          const handler = handlers[0];
+          if (typeof handler === 'function') {
+            handler(mockReq, mockRes, jasmine.createSpy());
+          }
         }
         return errorRouter;
       });

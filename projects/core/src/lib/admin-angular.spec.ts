@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AdminAngular, createAdminAngular } from './admin-angular';
 import { ResourceOptions, PropertyOptions } from './types';
 import { MemoryAdapter } from './memory-adapter';
@@ -78,7 +79,7 @@ describe('AdminAngular', () => {
       const newResource = { ...mockResource2 };
 
       expect(() =>
-        admin.registerResource([duplicateResource, newResource]),
+        admin.registerResource([duplicateResource, newResource] as any),
       ).toThrow(/Failed to register some resources/);
     });
   });
@@ -103,14 +104,14 @@ describe('AdminAngular', () => {
       admin.registerResource(mockResource2);
 
       const resources = admin.getResources();
-      expect(resources).toHaveLength(2);
+      expect(resources.length).toBe(2);
       expect(resources).toContain(mockResource);
       expect(resources).toContain(mockResource2);
     });
 
     it('should return empty array when no resources are registered', () => {
       const resources = admin.getResources();
-      expect(resources).toHaveLength(0);
+      expect(resources.length).toBe(0);
     });
   });
 
@@ -177,7 +178,7 @@ describe('AdminAngular', () => {
   describe('integration tests', () => {
     it('should handle complex resource management workflow', () => {
       // Register resources
-      admin.registerResource([mockResource, mockResource2]);
+      admin.registerResource([mockResource, mockResource2] as any);
       expect(admin.getResourceCount()).toBe(2);
 
       // Verify resources exist
@@ -190,7 +191,7 @@ describe('AdminAngular', () => {
 
       // Get all resources
       const allResources = admin.getResources();
-      expect(allResources).toHaveLength(2);
+      expect(allResources.length).toBe(2);
 
       // Remove one resource
       admin.unregisterResource('users');

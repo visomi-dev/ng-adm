@@ -72,7 +72,7 @@ describe('MemoryAdapter', () => {
       await adapter.create(context, record2);
 
       const result = await adapter.list(context);
-      expect(result.data).toHaveLength(2);
+      expect(result.data.length).toBe(2);
       expect(result.total).toBe(2);
       expect(result.data[0]).toEqual(record1);
       expect(result.data[1]).toEqual(record2);
@@ -101,7 +101,7 @@ describe('MemoryAdapter', () => {
       };
 
       const result = await adapter.list(filterContext);
-      expect(result.data).toHaveLength(1);
+      expect(result.data.length).toBe(1);
       expect(result.total).toBe(1);
       expect(result.data[0]).toEqual(record1);
     });
@@ -262,7 +262,7 @@ describe('MemoryAdapter', () => {
       };
 
       const page1Result = await adapter.list(page1Context);
-      expect(page1Result.data).toHaveLength(2);
+      expect(page1Result.data.length).toBe(2);
       expect(page1Result.total).toBe(5);
       expect(page1Result.data[0].name).toBe('User1');
       expect(page1Result.data[1].name).toBe('User2');
@@ -274,7 +274,7 @@ describe('MemoryAdapter', () => {
       };
 
       const page2Result = await adapter.list(page2Context);
-      expect(page2Result.data).toHaveLength(2);
+      expect(page2Result.data.length).toBe(2);
       expect(page2Result.total).toBe(5);
       expect(page2Result.data[0].name).toBe('User3');
       expect(page2Result.data[1].name).toBe('User4');
@@ -286,7 +286,7 @@ describe('MemoryAdapter', () => {
       };
 
       const page3Result = await adapter.list(page3Context);
-      expect(page3Result.data).toHaveLength(1);
+      expect(page3Result.data.length).toBe(1);
       expect(page3Result.total).toBe(5);
       expect(page3Result.data[0].name).toBe('User5');
     });
@@ -304,7 +304,7 @@ describe('MemoryAdapter', () => {
       }
 
       const result = await adapter.list(context); // no pagination params
-      expect(result.data).toHaveLength(10); // default limit
+      expect(result.data.length).toBe(10); // default limit
       expect(result.total).toBe(15);
     });
 
@@ -318,7 +318,7 @@ describe('MemoryAdapter', () => {
       await adapter.create(context, record);
 
       const result = await adapter.list(context);
-      expect(result.data).toHaveLength(1);
+      expect(result.data.length).toBe(1);
       expect(result.total).toBe(1);
     });
   });
@@ -351,7 +351,7 @@ describe('MemoryAdapter', () => {
     });
 
     it('should throw error when record not found', async () => {
-      await expect(adapter.show(context, 999)).rejects.toThrow(
+      await expectAsync(adapter.show(context, 999)).toBeRejectedWith(
         'Record with id 999 not found in resource users',
       );
     });
@@ -501,9 +501,9 @@ describe('MemoryAdapter', () => {
         active: true,
       };
 
-      await expect(adapter.update(context, 999, updateData)).rejects.toThrow(
-        'Record with id 999 not found in resource users',
-      );
+      await expectAsync(
+        adapter.update(context, 999, updateData),
+      ).toBeRejectedWith('Record with id 999 not found in resource users');
     });
 
     it('should update updatedAt timestamp', async () => {
@@ -550,7 +550,7 @@ describe('MemoryAdapter', () => {
       expect(result).toBe(true);
 
       // Verify record is deleted
-      await expect(adapter.show(context, 1)).rejects.toThrow();
+      await expectAsync(adapter.show(context, 1)).toBeRejected();
     });
 
     it('should delete an existing record by string ID and return true', async () => {
@@ -625,7 +625,7 @@ describe('MemoryAdapter', () => {
   describe('resource isolation', () => {
     it('should maintain separate data for different resources', async () => {
       const userAdapter = new MemoryAdapter<TestRecord>();
-      const postAdapter = new MemoryAdapter();
+      const postAdapter = new MemoryAdapter<BaseRecord>();
 
       const userResource: ResourceOptions<TestRecord> = {
         name: 'users',
@@ -633,14 +633,14 @@ describe('MemoryAdapter', () => {
         adapter: userAdapter,
       };
 
-      const postResource: ResourceOptions = {
+      const postResource: ResourceOptions<BaseRecord> = {
         name: 'posts',
         properties: [],
         adapter: postAdapter,
       };
 
       const userContext: ActionContext<TestRecord> = { resource: userResource };
-      const postContext: ActionContext = { resource: postResource };
+      const postContext: ActionContext<BaseRecord> = { resource: postResource };
 
       const userRecord: TestRecord = {
         id: 1,
@@ -650,11 +650,12 @@ describe('MemoryAdapter', () => {
       };
       const postRecord = { id: 1, title: 'Post 1', content: 'Content 1' };
 
-      await userAdapter.create(userContext, userRecord);
-      await postAdapter.create(postContext, postRecord);
+      // Use correct ActionContext types for create/list to avoid type errors
+      await userAdapter.create(userContext as any, userRecord);
+      await postAdapter.create(postContext as any, postRecord);
 
-      expect((await userAdapter.list(userContext)).total).toBe(1);
-      expect((await postAdapter.list(postContext)).total).toBe(1);
+      expect((await userAdapter.list(userContext as any)).total).toBe(1);
+      expect((await postAdapter.list(postContext as any)).total).toBe(1);
     });
   });
 });

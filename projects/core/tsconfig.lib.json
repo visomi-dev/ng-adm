@@ -10,6 +10,10 @@
     "inlineSourceMap": true,
     "types": []
   },
-  "include": ["src/**/*.ts"],
+  "include": [
+    "src/**/*.ts",
+    "../ui/src/lib/deps.spec.ts",
+    "../ui/src/lib/deps.ts"
+  ],
   "exclude": ["**/*.spec.ts"]
 }
