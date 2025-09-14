@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'lib-section',
   imports: [],
   templateUrl: './section.html',
-  styleUrl: './section.css'
+  styleUrl: './section.css',
 })
-export class Section {
-
-}
+export class Section {}
