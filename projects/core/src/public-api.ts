@@ -10,7 +10,7 @@ export * from './lib/admin-angular';
 export * from './lib/memory-adapter';
 
 // Export schemas
-export * from './lib/schemas/nodes.schema';
-export * from './lib/schemas/page.schema';
-export * from './lib/schemas/style.schema';
-export * from './lib/schemas/components.schema';
+export * from './lib/page-builder/nodes.schema';
+export * from './lib/page-builder/page.schema';
+export * from './lib/page-builder/style.schema';
+export * from './lib/page-builder/components.schema';
