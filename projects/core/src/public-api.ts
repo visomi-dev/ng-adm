@@ -3,15 +3,14 @@
  */
 
 // Export types and interfaces
-export type {
-  PropertyType,
-  PropertyOptions,
-  ResourceOptions,
-  ActionContext,
-  Adapter,
-} from './lib/types';
-export type { BaseRecord } from './lib/memory-adapter';
+export * from './lib/types';
 
 // Export main classes
-export { AdminAngular } from './lib/admin-angular';
-export { MemoryAdapter } from './lib/memory-adapter';
+export * from './lib/admin-angular';
+export * from './lib/memory-adapter';
+
+// Export schemas
+export * from './lib/schemas/nodes.schema';
+export * from './lib/schemas/page.schema';
+export * from './lib/schemas/style.schema';
+export * from './lib/schemas/components.schema';
