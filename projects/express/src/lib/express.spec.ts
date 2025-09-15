@@ -61,7 +61,6 @@ describe('buildAdminRouter', () => {
       // Mock router.get to capture the handler
       const getSpy = spyOn(router, 'get');
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       getSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources') {
           const handler = handlers[0];
@@ -97,7 +96,6 @@ describe('buildAdminRouter', () => {
       const errorRouter = buildAdminRouter(errorAdmin);
       const getSpy = spyOn(errorRouter, 'get');
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       getSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources') {
           const handler = handlers[0];
@@ -127,7 +125,6 @@ describe('buildAdminRouter', () => {
       } as unknown as Response;
 
       const getSpy = spyOn(router, 'get');
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       getSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name') {
@@ -160,7 +157,6 @@ describe('buildAdminRouter', () => {
       } as unknown as Response;
 
       const getSpy = spyOn(router, 'get');
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       getSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name') {
@@ -201,7 +197,6 @@ describe('buildAdminRouter', () => {
       const errorRouter = buildAdminRouter(errorAdmin);
       const getSpy = spyOn(errorRouter, 'get');
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       getSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name') {
           const handler = handlers[0];
@@ -238,7 +233,6 @@ describe('buildAdminRouter', () => {
       } as unknown as Response;
 
       const getSpy = spyOn(router, 'get');
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       getSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name/list') {
@@ -280,7 +274,6 @@ describe('buildAdminRouter', () => {
 
       const getSpy = spyOn(router, 'get');
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       getSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name/list') {
           const handler = handlers[0];
@@ -313,7 +306,6 @@ describe('buildAdminRouter', () => {
       } as unknown as Response;
 
       const getSpy = spyOn(router, 'get');
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       getSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name/list') {
@@ -350,7 +342,6 @@ describe('buildAdminRouter', () => {
 
       const getSpy = spyOn(router, 'get');
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       getSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name/:id') {
           const handler = handlers[0];
@@ -379,7 +370,6 @@ describe('buildAdminRouter', () => {
       } as unknown as Response;
 
       const getSpy = spyOn(router, 'get');
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       getSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name/:id') {
@@ -418,7 +408,6 @@ describe('buildAdminRouter', () => {
 
       const postSpy = spyOn(router, 'post');
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       postSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name') {
           const handler = handlers[0];
@@ -449,7 +438,6 @@ describe('buildAdminRouter', () => {
       } as unknown as Response;
 
       const postSpy = spyOn(router, 'post');
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       postSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name') {
@@ -495,7 +483,6 @@ describe('buildAdminRouter', () => {
 
       const putSpy = spyOn(router, 'put');
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       putSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name/:id') {
           const handler = handlers[0];
@@ -525,7 +512,6 @@ describe('buildAdminRouter', () => {
       } as unknown as Response;
 
       const putSpy = spyOn(router, 'put');
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       putSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name/:id') {
@@ -567,7 +553,6 @@ describe('buildAdminRouter', () => {
 
       const deleteSpy = spyOn(router, 'delete');
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       deleteSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name/:id') {
           const handler = handlers[0];
@@ -597,7 +582,6 @@ describe('buildAdminRouter', () => {
       } as unknown as Response;
 
       const deleteSpy = spyOn(router, 'delete');
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       deleteSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name/:id') {
@@ -630,7 +614,6 @@ describe('buildAdminRouter', () => {
       } as unknown as Response;
 
       const deleteSpy = spyOn(router, 'delete');
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       deleteSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name/:id') {
@@ -694,7 +677,6 @@ describe('buildAdminRouter', () => {
       const errorRouter = buildAdminRouter(errorAdmin);
       const getSpy = spyOn(errorRouter, 'get');
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       getSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name/list') {
           const handler = handlers[0];
@@ -740,7 +722,6 @@ describe('buildAdminRouter', () => {
       const errorRouter = buildAdminRouter(errorAdmin);
       const getSpy = spyOn(errorRouter, 'get');
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       getSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name/list') {
           const handler = handlers[0];
@@ -785,7 +766,6 @@ describe('buildAdminRouter', () => {
 
       const errorRouter = buildAdminRouter(errorAdmin);
       const getSpy = spyOn(errorRouter, 'get');
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       getSpy.and.callFake((path: unknown, ...handlers: any[]) => {
         if (path === '/resources/:name/list') {

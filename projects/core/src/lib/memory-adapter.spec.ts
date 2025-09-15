@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { MemoryAdapter, BaseRecord } from './memory-adapter';
 import { ResourceOptions, PropertyOptions, ActionContext } from './types';
 

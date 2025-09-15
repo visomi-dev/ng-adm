@@ -129,6 +129,8 @@ export class PrismaAdapter<T = Record<string, unknown>> implements Adapter<T> {
       return true;
     } catch (error) {
       // If record doesn't exist, Prisma throws an error
+      console.error(error);
+
       return false;
     }
   }
@@ -138,6 +140,7 @@ export class PrismaAdapter<T = Record<string, unknown>> implements Adapter<T> {
    * @private
    */
   private getModel() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const model = (this.client as any)[this.modelName];
 
     if (!model) {
