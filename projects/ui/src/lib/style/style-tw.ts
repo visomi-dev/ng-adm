@@ -264,6 +264,7 @@ export class StyleTw {
         style: string;
         color: string;
       };
+
       if (typeof width === 'number') {
         out.push(
           width === 0
