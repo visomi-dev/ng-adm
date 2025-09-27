@@ -89,7 +89,7 @@ export type ComponentInstanceNode = BaseNodeSchema & {
   slots?: Record<string, $Node[]>;
 };
 
-export type $Node =
+export type $Node = (
   | StackNode
   | GridNode
   | BoxNode
@@ -101,7 +101,10 @@ export type $Node =
   | DividerNode
   | RepeaterNode
   | WidgetNode
-  | ComponentInstanceNode;
+  | ComponentInstanceNode
+) & {
+  children?: $Node[];
+};
 
 const makeStackNode = (node: z.ZodType<$Node>) =>
   baseNodeSchema.extend({

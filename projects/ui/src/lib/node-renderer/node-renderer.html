@@ -1,0 +1,17 @@
+@switch (node().type) {
+  @case ('grid') {
+    <div [class]="classComputed()">
+      @for (child of node().children; track child.id) {
+        <lib-node-renderer [node]="child" />
+      }
+    </div>
+  }
+
+  @case ('image') {
+    <img [src]="node().src" [alt]="node().alt" [class]="classComputed()" />
+  }
+
+  @default {
+    <span [class]="classComputed()">{{ node().type }}</span>
+  }
+}

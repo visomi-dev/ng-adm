@@ -110,17 +110,34 @@ export class StyleTw {
     if (style.display) out.push(DISPLAY_MAP[style.display] ?? 'flex');
 
     if (style.display === 'flex') {
-      if (style.flexDirection) out.push(FLEX_DIR_MAP[style.flexDirection]);
-      if (style.alignItems) out.push(ALIGN_ITEMS_MAP[style.alignItems]);
-      if (style.justifyContent) out.push(JUSTIFY_MAP[style.justifyContent]);
-      if (typeof style.wrap === 'boolean')
+      if (style.flexDirection) {
+        out.push(FLEX_DIR_MAP[style.flexDirection]);
+      }
+
+      if (style.alignItems) {
+        out.push(ALIGN_ITEMS_MAP[style.alignItems]);
+      }
+
+      if (style.justifyContent) {
+        out.push(JUSTIFY_MAP[style.justifyContent]);
+      }
+
+      if (style.wrap) {
         out.push(WRAP_MAP[String(style.wrap) as 'true' | 'false']);
+      }
+    }
+
+    if (style.display === 'grid') {
+      if (typeof style.wrap === 'boolean') {
+        out.push(WRAP_MAP[String(style.wrap) as 'true' | 'false']);
+      }
     }
 
     if (style.display === 'grid') {
       if (typeof style.columns === 'number' && style.columns > 0) {
         out.push(`grid-cols-${style.columns}`);
       }
+
       if (style.gridTemplateColumns) {
         out.push(`grid-cols-[${style.gridTemplateColumns}]`);
       }
@@ -143,7 +160,10 @@ export class StyleTw {
 
     if (style.gap != null) {
       const gap = twValueOrArbitrary('gap', style.gap, { allowZero: true });
-      if (gap) out.push(gap);
+
+      if (gap) {
+        out.push(gap);
+      }
     }
 
     const p = style.padding;
@@ -155,19 +175,26 @@ export class StyleTw {
         bottom: number;
         left: number;
       };
+
       const allEq =
         top === right && right === bottom && bottom === left && top != null;
 
       if (allEq) {
         const c = twValueOrArbitrary('p', top, { allowZero: true });
-        if (c) out.push(c);
+
+        if (c) {
+          out.push(c);
+        }
       } else {
         const xSym = right != null && left === right;
         const ySym = top != null && bottom === top;
 
         if (xSym) {
           const c = twValueOrArbitrary('px', right, { allowZero: true });
-          if (c) out.push(c);
+
+          if (c) {
+            out.push(c);
+          }
         } else {
           if (top != null)
             out.push(twValueOrArbitrary('pt', top, { allowZero: true })!);
@@ -181,7 +208,10 @@ export class StyleTw {
 
         if (ySym) {
           const c = twValueOrArbitrary('py', top, { allowZero: true });
-          if (c) out.push(c);
+
+          if (c) {
+            out.push(c);
+          }
         }
       }
     }
@@ -202,11 +232,22 @@ export class StyleTw {
 
     if (style.widthMode) {
       const m = SIZE_MODE_MAP[style.widthMode];
-      if (m?.w) out.push(m.w);
+
+      if (m?.w) {
+        out.push(m.w);
+      }
+
+      if (m?.w) {
+        out.push(m.w);
+      }
     }
+
     if (style.heightMode) {
       const m = SIZE_MODE_MAP[style.heightMode];
-      if (m?.h) out.push(m.h);
+
+      if (m?.h) {
+        out.push(m.h);
+      }
     }
 
     const WH = [
@@ -225,10 +266,13 @@ export class StyleTw {
       }
     }
 
-    if (typeof style.grow === 'number')
+    if (typeof style.grow === 'number') {
       out.push(style.grow > 0 ? 'grow' : 'grow-0');
-    if (typeof style.shrink === 'number')
+    }
+
+    if (typeof style.shrink === 'number') {
       out.push(style.shrink === 0 ? 'shrink-0' : 'shrink');
+    }
 
     return out;
   }
@@ -247,6 +291,7 @@ export class StyleTw {
 
     if (style.bg != null) {
       const token = resolveToken(style.bg);
+
       if (token?.kind === 'tw') {
         out.push(`bg-${token.value}`);
       } else {
@@ -276,7 +321,9 @@ export class StyleTw {
       } else if (typeof width === 'string') {
         out.push(`border-${width}`);
       } else {
-        if (color || bs) out.push('border');
+        if (color || bs) {
+          out.push('border');
+        }
       }
 
       if (bs)
@@ -287,6 +334,7 @@ export class StyleTw {
 
       if (color != null) {
         const c = resolveToken(color);
+
         if (c?.kind === 'tw') {
           out.push(`border-${c.value}`);
         } else {
@@ -297,20 +345,27 @@ export class StyleTw {
 
     if (style.radius != null) {
       const r = resolveToken(style.radius);
-      if (r?.kind === 'tw') out.push(`rounded-${r.value}`);
-      else if (typeof style.radius === 'number')
+      if (r?.kind === 'tw') {
+        out.push(`rounded-${r.value}`);
+      } else if (typeof style.radius === 'number') {
         out.push(`rounded-[${style.radius}px]`);
-      else out.push(`rounded-[${r ? r.value : style.radius}]`);
+      } else {
+        out.push(`rounded-[${r ? r.value : style.radius}]`);
+      }
     }
 
     if (style.shadow) {
       const s = resolveToken(style.shadow);
-      if (s?.kind === 'tw') out.push(`shadow-${s.value}`);
-      else out.push(`shadow-${s ? `[${s.value}]` : `[${style.shadow}]`}`);
+      if (s?.kind === 'tw') {
+        out.push(`shadow-${s.value}`);
+      } else {
+        out.push(`shadow-${s ? `[${s.value}]` : `[${style.shadow}]`}`);
+      }
     }
 
     if (typeof style.opacity === 'number') {
       const pct = Math.round(style.opacity * 100);
+
       out.push(pct % 5 === 0 ? `opacity-${pct}` : `opacity-[${style.opacity}]`);
     }
 
@@ -329,12 +384,17 @@ export class StyleTw {
   private mapTypography(style: Style): string[] {
     const out: string[] = [];
 
-    if (style.textAlign) out.push(TEXT_ALIGN_MAP[style.textAlign]);
+    if (style.textAlign) {
+      out.push(TEXT_ALIGN_MAP[style.textAlign]);
+    }
 
     if (style.font) {
       const r = resolveToken(style.font);
-      if (r?.kind === 'tw') out.push(`font-${r.value}`);
-      else out.push(`font-${r ? `[${r.value}]` : `[${style.font}]`}`);
+      if (r?.kind === 'tw') {
+        out.push(`font-${r.value}`);
+      } else {
+        out.push(`font-${r ? `[${r.value}]` : `[${style.font}]`}`);
+      }
     }
 
     if (typeof style.size !== 'undefined') {
@@ -342,6 +402,7 @@ export class StyleTw {
         typeof style.size === 'number'
           ? `text-[${style.size}px]`
           : `text-[${style.size}]`;
+
       out.push(v);
     }
 
@@ -350,6 +411,7 @@ export class StyleTw {
         typeof style.weight === 'number'
           ? `font-[${style.weight}]`
           : `font-${style.weight}`;
+
       out.push(w);
     }
 
@@ -466,20 +528,12 @@ export class StyleTw {
    * // Returns: 'flex gap-4 p-4 sm:gap-2'
    * ```
    */
-  styleToClassList(style?: Style | null): string {
-    if (!style) return '';
+  styleToClass(style?: Style | null): string {
+    if (!style) {
+      return '';
+    }
 
     return this.classesWithResponsive(style);
-  }
-
-  /**
-   * Alias for styleToClassList for backward compatibility
-   *
-   * @param style - Style object to convert, or null/undefined for empty string
-   * @returns Tailwind CSS class string
-   */
-  styleToClassString(style?: Style | null): string {
-    return this.styleToClassList(style);
   }
 
   /**

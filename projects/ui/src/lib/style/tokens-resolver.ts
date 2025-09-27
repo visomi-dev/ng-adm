@@ -66,10 +66,18 @@ export function toArbitrary(value: unknown): string | null {
   if (typeof value === 'number') return `[${value}px]`;
   if (typeof value === 'string') {
     const token = resolveToken(value);
-    if (!token) return null;
-    if (token.kind === 'tw') return null;
+
+    if (!token) {
+      return null;
+    }
+
+    if (token.kind === 'tw') {
+      return null;
+    }
+
     return `[${token.value}]`;
   }
+
   return null;
 }
 
@@ -78,18 +86,29 @@ export function twValueOrArbitrary(
   value: unknown,
   options?: { allowZero?: boolean },
 ): string | null {
-  if (value == null) return null;
+  if (value == null) {
+    return null;
+  }
 
   const r = resolveToken(value);
-  if (r?.kind === 'tw') return `${baseClass}-${r.value}`;
+
+  if (r?.kind === 'tw') {
+    return `${baseClass}-${r.value}`;
+  }
 
   if (typeof value === 'number') {
-    if (value === 0 && options?.allowZero !== false) return `${baseClass}-0`;
+    if (value === 0 && options?.allowZero !== false) {
+      return `${baseClass}-0`;
+    }
+
     return `${baseClass}-${toArbitrary(value)}`;
   }
 
   const arb = toArbitrary(value);
-  if (arb) return `${baseClass}-${arb}`;
+
+  if (arb) {
+    return `${baseClass}-${arb}`;
+  }
 
   return `${baseClass}-${value}`;
 }

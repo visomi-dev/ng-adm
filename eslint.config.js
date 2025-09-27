@@ -4,8 +4,9 @@ const tseslint = require('typescript-eslint');
 const angular = require('angular-eslint');
 const eslintConfigPrettier = require('eslint-config-prettier');
 const eslintPluginImport = require('eslint-plugin-import-x');
-const createTypeScriptImportResolver =
-  require('eslint-import-resolver-typescript').createTypeScriptImportResolver;
+const {
+  createTypeScriptImportResolver,
+} = require('eslint-import-resolver-typescript');
 
 module.exports = tseslint.config(
   {
@@ -98,14 +99,17 @@ module.exports = tseslint.config(
         },
       ],
       'import-x/order': ['error', { 'newlines-between': 'always' }],
+      'import-x/no-unresolved': ['error', { ignore: ['@ng-adm/*'] }],
     },
     settings: {
-      'import-x/resolver': {
-        typescript: {
-          project: ['projects/*/tsconfig.{lib,app}.json'],
+      'import-x/resolver-next': [
+        createTypeScriptImportResolver({
           alwaysTryTypes: true,
-        },
-      },
+          bun: true,
+          // project: ['./tsconfig.json'],
+          project: ['projects/*/tsconfig.{lib,app}.json'],
+        }),
+      ],
     },
   },
   {
