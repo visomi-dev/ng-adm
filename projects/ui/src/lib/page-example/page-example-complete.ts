@@ -58,6 +58,7 @@ export class PageExample {
         this.createHeaderNode(),
         this.createHeroNode(),
         this.createFeaturesNode(),
+        this.createProductsNode(),
         this.createFooterNode(),
       ],
     };
@@ -94,6 +95,7 @@ export class PageExample {
           style: {
             weight: 'bold',
             size: 24,
+            color: '#1f2937',
           },
         },
         {
@@ -118,7 +120,9 @@ export class PageExample {
                 label: 'Inicio',
                 variant: 'ghost',
               },
-              style: {},
+              style: {
+                color: '#6b7280',
+              },
             },
             {
               id: 'nav-item-2',
@@ -130,7 +134,9 @@ export class PageExample {
                 label: 'Acerca de',
                 variant: 'ghost',
               },
-              style: {},
+              style: {
+                color: '#6b7280',
+              },
             },
             {
               id: 'nav-item-3',
@@ -181,6 +187,7 @@ export class PageExample {
             size: 48,
             weight: 'bold',
             textAlign: 'center',
+            color: '#1f2937',
           },
         },
         {
@@ -196,6 +203,7 @@ export class PageExample {
           style: {
             size: 20,
             textAlign: 'center',
+            color: '#6b7280',
           },
         },
         {
@@ -282,6 +290,7 @@ export class PageExample {
           },
           style: {
             size: 32,
+            color: '#3b82f6',
           },
         },
         {
@@ -297,6 +306,7 @@ export class PageExample {
           style: {
             size: 20,
             weight: 'semibold',
+            color: '#1f2937',
           },
         },
         {
@@ -311,7 +321,169 @@ export class PageExample {
           },
           style: {
             size: 16,
+            color: '#6b7280',
           },
+        },
+      ],
+    };
+  }
+
+  private createProductsNode(): Node {
+    return {
+      id: 'products-1',
+      name: 'Products Section',
+      type: 'stack',
+      visible: true,
+      locked: false,
+      style: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 32,
+        padding: { top: 48, bottom: 48 },
+      },
+      children: [
+        {
+          id: 'products-title-1',
+          name: 'Products Title',
+          type: 'text',
+          visible: true,
+          locked: false,
+          props: {
+            text: 'Nuestros Productos',
+            semantic: 'h2',
+          },
+          style: {
+            size: 32,
+            weight: 'bold',
+            textAlign: 'center',
+            color: '#1f2937',
+          },
+        },
+        {
+          id: 'products-grid-1',
+          name: 'Products Grid',
+          type: 'grid',
+          visible: true,
+          locked: false,
+          style: {
+            display: 'grid',
+            columns: 2,
+            gap: 24,
+          },
+          children: [
+            this.createProductCard(
+              'Producto Premium',
+              99.99,
+              'https://via.placeholder.com/300x200',
+            ),
+            this.createProductCard(
+              'Producto Estándar',
+              49.99,
+              'https://via.placeholder.com/300x200',
+            ),
+          ],
+        },
+      ],
+    };
+  }
+
+  private createProductCard(
+    name: string,
+    price: number,
+    imageUrl: string,
+  ): Node {
+    return {
+      id: `product-${Math.random().toString(36).substr(2, 9)}`,
+      name: `Product: ${name}`,
+      type: 'stack',
+      visible: true,
+      locked: false,
+      style: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 16,
+        bg: '#ffffff',
+        border: { color: '#e5e7eb', width: 1, style: 'solid' },
+        radius: 8,
+        overflow: 'hidden',
+      },
+      children: [
+        {
+          id: `product-image-${Math.random().toString(36).substr(2, 9)}`,
+          name: 'Product Image',
+          type: 'image',
+          visible: true,
+          locked: false,
+          props: {
+            src: imageUrl,
+            alt: name,
+            objectFit: 'cover',
+          },
+          style: {
+            w: '100%',
+            h: 200,
+          },
+        },
+        {
+          id: `product-info-${Math.random().toString(36).substr(2, 9)}`,
+          name: 'Product Info',
+          type: 'stack',
+          visible: true,
+          locked: false,
+          style: {
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 8,
+            padding: { top: 16, bottom: 16, left: 16, right: 16 },
+          },
+          children: [
+            {
+              id: `product-name-${Math.random().toString(36).substr(2, 9)}`,
+              name: 'Product Name',
+              type: 'text',
+              visible: true,
+              locked: false,
+              props: {
+                text: name,
+                semantic: 'h3',
+              },
+              style: {
+                size: 18,
+                weight: 'semibold',
+                color: '#1f2937',
+              },
+            },
+            {
+              id: `product-price-${Math.random().toString(36).substr(2, 9)}`,
+              name: 'Product Price',
+              type: 'text',
+              visible: true,
+              locked: false,
+              props: {
+                text: `$${price}`,
+                semantic: 'span',
+              },
+              style: {
+                size: 20,
+                weight: 'bold',
+                color: '#059669',
+              },
+            },
+            {
+              id: `product-button-${Math.random().toString(36).substr(2, 9)}`,
+              name: 'Product Button',
+              type: 'button',
+              visible: true,
+              locked: false,
+              props: {
+                label: 'Comprar',
+                variant: 'solid',
+              },
+              style: {
+                margin: { top: 8 },
+              },
+            },
+          ],
         },
       ],
     };
@@ -331,6 +503,7 @@ export class PageExample {
         gap: 16,
         padding: { top: 32, bottom: 32 },
         bg: '#1f2937',
+        color: '#ffffff',
       },
       children: [
         {
@@ -346,6 +519,7 @@ export class PageExample {
           style: {
             size: 14,
             textAlign: 'center',
+            color: '#9ca3af',
           },
         },
       ],

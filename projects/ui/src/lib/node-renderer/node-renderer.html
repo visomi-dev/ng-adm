@@ -1,4 +1,12 @@
 @switch (node().type) {
+  @case ('stack') {
+    <div [class]="classComputed()">
+      @for (child of node().children; track child.id) {
+        <lib-node-renderer [node]="child" />
+      }
+    </div>
+  }
+
   @case ('grid') {
     <div [class]="classComputed()">
       @for (child of node().children; track child.id) {
@@ -7,11 +15,116 @@
     </div>
   }
 
+  @case ('box') {
+    <div [class]="classComputed()">
+      @for (child of node().children; track child.id) {
+        <lib-node-renderer [node]="child" />
+      }
+    </div>
+  }
+
+  @case ('text') {
+    @switch (node().props.semantic) {
+      @case ('h1') {
+        <h1 [class]="classComputed()">{{ node().props.text }}</h1>
+      }
+      @case ('h2') {
+        <h2 [class]="classComputed()">{{ node().props.text }}</h2>
+      }
+      @case ('h3') {
+        <h3 [class]="classComputed()">{{ node().props.text }}</h3>
+      }
+      @case ('h4') {
+        <h4 [class]="classComputed()">{{ node().props.text }}</h4>
+      }
+      @case ('span') {
+        <span [class]="classComputed()">{{ node().props.text }}</span>
+      }
+      @default {
+        <p [class]="classComputed()">{{ node().props.text }}</p>
+      }
+    }
+  }
+
   @case ('image') {
-    <img [src]="node().src" [alt]="node().alt" [class]="classComputed()" />
+    <img
+      [src]="node().props.src"
+      [alt]="node().props.alt || ''"
+      [class]="classComputed()"
+      [style]="getImageStyles()"
+    />
+  }
+
+  @case ('button') {
+    @if (node().props.href) {
+      <a
+        [href]="node().props.href"
+        [class]="getButtonClasses()"
+        (click)="handleAction($event, 'click')"
+      >
+        {{ node().props.label }}
+      </a>
+    } @else {
+      <button
+        [class]="getButtonClasses()"
+        (click)="handleAction($event, 'click')"
+      >
+        {{ node().props.label }}
+      </button>
+    }
+  }
+
+  @case ('icon') {
+    <i [class]="getIconClasses()" [attr.aria-label]="node().props.name"></i>
+  }
+
+  @case ('spacer') {
+    <div [class]="classComputed()" [style]="getSpacerStyles()"></div>
+  }
+
+  @case ('divider') {
+    <hr [class]="classComputed()" [style]="getDividerStyles()" />
+  }
+
+  @case ('widget') {
+    <div [class]="classComputed()">
+      <!-- Widget rendering would go here based on library and component -->
+      <div class="widget-placeholder">
+        {{ node().widget.library }}: {{ node().widget.component }}
+      </div>
+      @for (child of node().children; track child.id) {
+        <lib-node-renderer [node]="child" />
+      }
+    </div>
+  }
+
+  @case ('component') {
+    <div [class]="classComputed()">
+      <!-- Component instance rendering would go here -->
+      <div class="component-placeholder">Component: {{ node().ref }}</div>
+      @if (node().slots) {
+        @for (slot of getSlotEntries(); track slot.key) {
+          <div [attr.data-slot]="slot.key">
+            @for (child of slot.value; track child.id) {
+              <lib-node-renderer [node]="child" />
+            }
+          </div>
+        }
+      }
+    </div>
+  }
+
+  @case ('repeater') {
+    <div [class]="classComputed()">
+      <!-- Repeater rendering would go here with data binding -->
+      <div class="repeater-placeholder">
+        Repeater: {{ node().bindings.collection }}
+      </div>
+      <lib-node-renderer [node]="node().template" />
+    </div>
   }
 
   @default {
-    <span [class]="classComputed()">{{ node().type }}</span>
+    <span [class]="classComputed()">Unknown node type: {{ node().type }}</span>
   }
 }
