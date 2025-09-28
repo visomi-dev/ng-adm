@@ -38,6 +38,10 @@ export class NodeRenderer {
     return this.styleTw.styleToClass(this.node().style);
   });
 
+  readonly styleComputed = computed(() => {
+    return this.styleTw.styleToStyle(this.node().style);
+  });
+
   readonly imageStyles = computed(() => {
     const node = this.node();
 
@@ -52,10 +56,6 @@ export class NodeRenderer {
     }
 
     return styles.join('; ');
-  });
-
-  readonly styleComputed = computed(() => {
-    return this.styleTw.styleToStyle(this.node().style);
   });
 
   readonly buttonClasses = computed(() => {
