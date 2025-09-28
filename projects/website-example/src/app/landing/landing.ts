@@ -1,4 +1,5 @@
 import { Component, signal } from '@angular/core';
+
 import { type PageSchema, type Node } from '@ng-adm/core';
 import { PageRenderer } from '@ng-adm/ui';
 
@@ -105,6 +106,7 @@ export class Landing {
         minH: '100vh',
         bg: '#FDF7F8',
         font: 'sans',
+        maxW: '100vw',
       },
       children: [
         this.createHeaderNode(),
@@ -129,7 +131,7 @@ export class Landing {
         flexDirection: 'row',
         justifyContent: 'between',
         alignItems: 'center',
-        padding: { top: 16, bottom: 16, left: 24, right: 24 },
+        padding: { top: 6, bottom: 6, left: 8, right: 8 },
         bg: 'rgba(255, 255, 255, 0.8)',
         shadow: 'sm',
       },
@@ -158,7 +160,7 @@ export class Landing {
           style: {
             display: 'flex',
             flexDirection: 'row',
-            gap: 32,
+            gap: 8,
           },
           children: [
             {
@@ -226,9 +228,9 @@ export class Landing {
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 32,
-        padding: { top: 96, bottom: 96, left: 24, right: 24 },
-        minH: '80vh',
+        gap: 16,
+        padding: { top: 48, bottom: 48, left: 16, right: 16 },
+        minH: '60vh',
       },
       children: [
         {
@@ -240,7 +242,7 @@ export class Landing {
           style: {
             display: 'flex',
             flexDirection: 'column',
-            gap: 32,
+            gap: 16,
           },
           children: [
             {
@@ -254,7 +256,7 @@ export class Landing {
                 semantic: 'h1',
               },
               style: {
-                size: 48,
+                size: 36,
                 weight: 'bold',
                 font: 'serif',
                 lineHeight: 1.2,
@@ -271,8 +273,8 @@ export class Landing {
                 semantic: 'p',
               },
               style: {
-                size: 18,
-                lineHeight: 1.6,
+                size: 16,
+                lineHeight: 1.5,
               },
             },
             {
@@ -286,7 +288,7 @@ export class Landing {
                 variant: 'solid',
               },
               style: {
-                padding: { top: 12, bottom: 12, left: 32, right: 32 },
+                padding: { top: 4, bottom: 4, left: 16, right: 16 },
                 radius: 9999,
                 bg: '#B94A74',
                 weight: 'bold',
@@ -314,8 +316,8 @@ export class Landing {
             alt: 'Un postre exquisito y delicado',
           },
           style: {
-            w: 600,
-            h: 600,
+            w: 400,
+            h: 400,
             radius: 9999,
             shadow: '2xl',
           },
@@ -334,8 +336,8 @@ export class Landing {
       style: {
         display: 'flex',
         flexDirection: 'column',
-        gap: 48,
-        padding: { top: 80, bottom: 80, left: 24, right: 24 },
+        gap: 24,
+        padding: { top: 40, bottom: 40, left: 16, right: 16 },
         bg: '#ffffff',
       },
       children: [
@@ -364,7 +366,7 @@ export class Landing {
                 semantic: 'h2',
               },
               style: {
-                size: 36,
+                size: 28,
                 weight: 'bold',
                 font: 'serif',
               },
@@ -394,8 +396,8 @@ export class Landing {
           locked: false,
           style: {
             display: 'grid',
-            columns: 4,
-            gap: 32,
+            columns: 2,
+            gap: 16,
           },
           children: this.createProductCards(),
         },
@@ -492,7 +494,7 @@ export class Landing {
                 semantic: 'h3',
               },
               style: {
-                size: 20,
+                size: 18,
                 weight: 'semibold',
               },
             },
@@ -543,8 +545,8 @@ export class Landing {
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 48,
-        padding: { top: 80, bottom: 80, left: 24, right: 24 },
+        gap: 24,
+        padding: { top: 40, bottom: 40, left: 16, right: 16 },
       },
       children: [
         {
@@ -573,7 +575,7 @@ export class Landing {
           style: {
             display: 'flex',
             flexDirection: 'column',
-            gap: 24,
+            gap: 12,
           },
           children: [
             {
@@ -587,7 +589,7 @@ export class Landing {
                 semantic: 'h2',
               },
               style: {
-                size: 36,
+                size: 28,
                 weight: 'bold',
                 font: 'serif',
               },
@@ -638,8 +640,8 @@ export class Landing {
       style: {
         display: 'flex',
         flexDirection: 'column',
-        gap: 48,
-        padding: { top: 80, bottom: 80, left: 24, right: 24 },
+        gap: 24,
+        padding: { top: 40, bottom: 40, left: 16, right: 16 },
         bg: '#ffffff',
       },
       children: [
@@ -668,8 +670,8 @@ export class Landing {
           locked: false,
           style: {
             display: 'grid',
-            columns: 3,
-            gap: 32,
+            columns: 1,
+            gap: 16,
           },
           children: this.createTestimonialCards(),
         },
@@ -757,7 +759,7 @@ export class Landing {
         display: 'flex',
         flexDirection: 'column',
         gap: 32,
-        padding: { top: 48, bottom: 48, left: 24, right: 24 },
+        padding: { top: 32, bottom: 32, left: 16, right: 16 },
         bg: '#5D2339',
       },
       children: [
@@ -769,8 +771,8 @@ export class Landing {
           locked: false,
           style: {
             display: 'grid',
-            columns: 3,
-            gap: 32,
+            columns: 1,
+            gap: 16,
           },
           children: [
             {
