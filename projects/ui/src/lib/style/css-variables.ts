@@ -119,7 +119,7 @@ export function extractCSSVariables(style: Style): Record<string, string> {
   const variables: Record<string, string> = {};
 
   // Gap - only extract if NOT in catalog
-  if (style.gap != null && typeof style.gap !== 'string') {
+  if (style.gap != null) {
     const gapInCatalog = GAP_CATALOG[style.gap as keyof typeof GAP_CATALOG];
     if (!gapInCatalog) {
       variables[CSS_VARIABLES.gap] =
@@ -172,14 +172,14 @@ export function extractCSSVariables(style: Style): Record<string, string> {
   }
 
   // Width/Height - only extract if NOT in catalog
-  if (style.w != null && typeof style.w !== 'string') {
+  if (style.w != null) {
     const widthInCatalog = WIDTH_CATALOG[style.w as keyof typeof WIDTH_CATALOG];
     if (!widthInCatalog) {
       variables[CSS_VARIABLES.width] =
         typeof style.w === 'number' ? `${style.w}px` : String(style.w);
     }
   }
-  if (style.h != null && typeof style.h !== 'string') {
+  if (style.h != null) {
     const heightInCatalog =
       HEIGHT_CATALOG[style.h as keyof typeof HEIGHT_CATALOG];
     if (!heightInCatalog) {
@@ -187,7 +187,7 @@ export function extractCSSVariables(style: Style): Record<string, string> {
         typeof style.h === 'number' ? `${style.h}px` : String(style.h);
     }
   }
-  if (style.minW != null && typeof style.minW !== 'string') {
+  if (style.minW != null) {
     const minWidthInCatalog =
       MIN_WIDTH_CATALOG[style.minW as keyof typeof MIN_WIDTH_CATALOG];
     if (!minWidthInCatalog) {
@@ -195,7 +195,7 @@ export function extractCSSVariables(style: Style): Record<string, string> {
         typeof style.minW === 'number' ? `${style.minW}px` : String(style.minW);
     }
   }
-  if (style.maxW != null && typeof style.maxW !== 'string') {
+  if (style.maxW != null) {
     const maxWidthInCatalog =
       MAX_WIDTH_CATALOG[style.maxW as keyof typeof MAX_WIDTH_CATALOG];
     if (!maxWidthInCatalog) {
@@ -203,7 +203,7 @@ export function extractCSSVariables(style: Style): Record<string, string> {
         typeof style.maxW === 'number' ? `${style.maxW}px` : String(style.maxW);
     }
   }
-  if (style.minH != null && typeof style.minH !== 'string') {
+  if (style.minH != null) {
     const minHeightInCatalog =
       MIN_HEIGHT_CATALOG[style.minH as keyof typeof MIN_HEIGHT_CATALOG];
     if (!minHeightInCatalog) {
@@ -211,7 +211,7 @@ export function extractCSSVariables(style: Style): Record<string, string> {
         typeof style.minH === 'number' ? `${style.minH}px` : String(style.minH);
     }
   }
-  if (style.maxH != null && typeof style.maxH !== 'string') {
+  if (style.maxH != null) {
     const maxHeightInCatalog =
       MAX_HEIGHT_CATALOG[style.maxH as keyof typeof MAX_HEIGHT_CATALOG];
     if (!maxHeightInCatalog) {
@@ -221,7 +221,7 @@ export function extractCSSVariables(style: Style): Record<string, string> {
   }
 
   // Typography - only extract if NOT in catalog
-  if (style.size != null && typeof style.size !== 'string') {
+  if (style.size != null) {
     const fontSizeInCatalog =
       FONT_SIZE_CATALOG[style.size as keyof typeof FONT_SIZE_CATALOG];
     if (!fontSizeInCatalog) {
@@ -229,7 +229,7 @@ export function extractCSSVariables(style: Style): Record<string, string> {
         typeof style.size === 'number' ? `${style.size}px` : String(style.size);
     }
   }
-  if (style.weight != null && typeof style.weight !== 'string') {
+  if (style.weight != null) {
     const fontWeightInCatalog =
       FONT_WEIGHT_CATALOG[style.weight as keyof typeof FONT_WEIGHT_CATALOG];
     if (!fontWeightInCatalog) {
@@ -239,7 +239,7 @@ export function extractCSSVariables(style: Style): Record<string, string> {
           : String(style.weight);
     }
   }
-  if (style.lineHeight != null && typeof style.lineHeight !== 'string') {
+  if (style.lineHeight != null) {
     const lineHeightInCatalog =
       LINE_HEIGHT_CATALOG[style.lineHeight as keyof typeof LINE_HEIGHT_CATALOG];
     if (!lineHeightInCatalog) {
@@ -249,7 +249,7 @@ export function extractCSSVariables(style: Style): Record<string, string> {
           : String(style.lineHeight);
     }
   }
-  if (style.letterSpacing != null && typeof style.letterSpacing !== 'string') {
+  if (style.letterSpacing != null) {
     const letterSpacingInCatalog =
       LETTER_SPACING_CATALOG[
         style.letterSpacing as unknown as keyof typeof LETTER_SPACING_CATALOG
@@ -261,7 +261,7 @@ export function extractCSSVariables(style: Style): Record<string, string> {
           : String(style.letterSpacing);
     }
   }
-  if (style.font != null && typeof style.font !== 'string') {
+  if (style.font != null) {
     const fontFamilyInCatalog =
       FONT_FAMILY_CATALOG[
         String(style.font) as keyof typeof FONT_FAMILY_CATALOG
@@ -272,7 +272,7 @@ export function extractCSSVariables(style: Style): Record<string, string> {
   }
 
   // Visual - only extract if NOT in catalog
-  if (style.bg != null && typeof style.bg !== 'string') {
+  if (style.bg != null) {
     // Background colors are usually not in catalogs, so extract them
     variables[CSS_VARIABLES.backgroundColor] = String(style.bg);
   }
@@ -294,7 +294,7 @@ export function extractCSSVariables(style: Style): Record<string, string> {
       variables[CSS_VARIABLES.borderColor] = String(border.color);
     }
   }
-  if (style.radius != null && typeof style.radius !== 'string') {
+  if (style.radius != null) {
     const borderRadiusInCatalog =
       BORDER_RADIUS_CATALOG[style.radius as keyof typeof BORDER_RADIUS_CATALOG];
     if (!borderRadiusInCatalog) {
@@ -304,7 +304,7 @@ export function extractCSSVariables(style: Style): Record<string, string> {
           : String(style.radius);
     }
   }
-  if (style.shadow != null && typeof style.shadow !== 'string') {
+  if (style.shadow != null) {
     // Shadows are usually not in catalogs, so extract them
     variables[CSS_VARIABLES.boxShadow] = String(style.shadow);
   }
