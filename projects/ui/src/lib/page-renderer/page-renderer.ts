@@ -1,7 +1,8 @@
-import { Component, computed, inject, input } from '@angular/core';
-import { type PageSchema, type Node } from '@ng-adm/core';
+import { Component, computed, effect, inject, input } from '@angular/core';
+import { type PageSchema } from '@ng-adm/core';
 
 import { NodeRenderer } from '../node-renderer/node-renderer';
+import { SEO } from '../seo';
 
 @Component({
   selector: 'lib-page-renderer',
@@ -10,34 +11,28 @@ import { NodeRenderer } from '../node-renderer/node-renderer';
   styleUrl: './page-renderer.css',
 })
 export class PageRenderer {
+  readonly seo = inject(SEO);
+
   readonly page = input.required<PageSchema>();
 
   readonly rootNodes = computed(() => {
     const page = this.page();
+
     return Array.isArray(page.root) ? page.root : [page.root];
   });
 
-  readonly pageTitle = computed(() => {
-    return this.page().seo.title;
-  });
+  readonly pageEffect = effect(() => {
+    const page = this.page();
 
-  readonly pageDescription = computed(() => {
-    return this.page().seo.description;
-  });
+    if (!page.seo) {
+      return;
+    }
 
-  readonly canonicalUrl = computed(() => {
-    return this.page().seo.canonical;
-  });
-
-  readonly ogImage = computed(() => {
-    return this.page().seo.og?.image;
-  });
-
-  readonly ogUrl = computed(() => {
-    return this.page().seo.og?.url;
-  });
-
-  readonly ogType = computed(() => {
-    return this.page().seo.og?.type;
+    this.seo.configure({
+      title: page.seo.title,
+      description: page.seo.description ?? '',
+      url: page.seo.canonical ?? '',
+      preview: page.seo.og?.image ?? '',
+    });
   });
 }

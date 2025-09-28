@@ -1,5 +1,11 @@
 import { Component, computed, inject, input, forwardRef } from '@angular/core';
-import { type Node } from '@ng-adm/core';
+import {
+  ButtonNode,
+  IconNode,
+  ImageNode,
+  TextNode,
+  type Node,
+} from '@ng-adm/core';
 
 import { StyleTw } from '../style/style-tw';
 
@@ -18,20 +24,28 @@ export class NodeRenderer {
     return this.styleTw.styleToClass(this.node().style);
   });
 
-  getImageStyles(): string {
+  readonly imageStyles = computed(() => {
     const node = this.node();
-    if (node.type !== 'image') return '';
+
+    if (node.type !== 'image') {
+      return '';
+    }
 
     const styles: string[] = [];
+
     if (node.props.objectFit) {
       styles.push(`object-fit: ${node.props.objectFit}`);
     }
-    return styles.join('; ');
-  }
 
-  getButtonClasses(): string {
+    return styles.join('; ');
+  });
+
+  readonly buttonClasses = computed(() => {
     const node = this.node();
-    if (node.type !== 'button') return this.classComputed();
+
+    if (node.type !== 'button') {
+      return this.classComputed();
+    }
 
     const baseClasses = this.classComputed();
     const variant = node.props.variant || 'solid';
@@ -44,11 +58,13 @@ export class NodeRenderer {
     };
 
     return `${baseClasses} ${variantClasses[variant]}`.trim();
-  }
+  });
 
-  getIconClasses(): string {
+  readonly iconClasses = computed(() => {
     const node = this.node();
-    if (node.type !== 'icon') return this.classComputed();
+    if (node.type !== 'icon') {
+      return this.classComputed();
+    }
 
     const baseClasses = this.classComputed();
     // Assuming you're using a icon library like Heroicons, FontAwesome, etc.
@@ -56,32 +72,80 @@ export class NodeRenderer {
     const iconClass = `icon-${node.props.name}`;
 
     return `${baseClasses} ${iconClass}`.trim();
-  }
+  });
 
-  getSpacerStyles(): string {
+  readonly spacerStyles = computed(() => {
     const node = this.node();
-    if (node.type !== 'spacer') return '';
+    if (node.type !== 'spacer') {
+      return '';
+    }
 
     const size = node.props?.size || 16;
     return `height: ${size}px; width: 100%;`;
-  }
+  });
 
-  getDividerStyles(): string {
+  readonly dividerStyles = computed(() => {
     const node = this.node();
-    if (node.type !== 'divider') return '';
+    if (node.type !== 'divider') {
+      return '';
+    }
 
     const orientation = node.props?.orientation || 'horizontal';
+
     return orientation === 'vertical'
       ? 'width: 1px; height: 100%; border-left: 1px solid #e5e7eb;'
       : 'width: 100%; height: 1px; border-top: 1px solid #e5e7eb;';
-  }
+  });
 
-  getSlotEntries(): { key: string; value: Node[] }[] {
+  readonly slotEntries = computed(() => {
     const node = this.node();
-    if (node.type !== 'component' || !node.slots) return [];
+
+    if (node.type !== 'component' || !node.slots) {
+      return [];
+    }
 
     return Object.entries(node.slots).map(([key, value]) => ({ key, value }));
-  }
+  });
+
+  readonly textProps = computed(() => {
+    const node = this.node();
+
+    if (node.type !== 'text') {
+      return {} as TextNode['props'];
+    }
+
+    return node.props as TextNode['props'];
+  });
+
+  readonly imageProps = computed(() => {
+    const node = this.node();
+
+    if (node.type !== 'image') {
+      return {} as ImageNode['props'];
+    }
+
+    return node.props as ImageNode['props'];
+  });
+
+  readonly buttonProps = computed(() => {
+    const node = this.node();
+
+    if (node.type !== 'button') {
+      return {} as ButtonNode['props'];
+    }
+
+    return node.props as ButtonNode['props'];
+  });
+
+  readonly iconProps = computed(() => {
+    const node = this.node();
+
+    if (node.type !== 'icon') {
+      return {} as IconNode['props'];
+    }
+
+    return node.props as IconNode['props'];
+  });
 
   handleAction(_event: Event, actionType: string): void {
     const node = this.node();

@@ -24,105 +24,73 @@
   }
 
   @case ('text') {
-    @switch (node().props.semantic) {
+    @switch (textProps().semantic) {
       @case ('h1') {
-        <h1 [class]="classComputed()">{{ node().props.text }}</h1>
+        <h1 [class]="classComputed()">{{ textProps().text }}</h1>
       }
+
       @case ('h2') {
-        <h2 [class]="classComputed()">{{ node().props.text }}</h2>
+        <h2 [class]="classComputed()">{{ textProps().text }}</h2>
       }
+
       @case ('h3') {
-        <h3 [class]="classComputed()">{{ node().props.text }}</h3>
+        <h3 [class]="classComputed()">{{ textProps().text }}</h3>
       }
+
       @case ('h4') {
-        <h4 [class]="classComputed()">{{ node().props.text }}</h4>
+        <h4 [class]="classComputed()">{{ textProps().text }}</h4>
       }
+
       @case ('span') {
-        <span [class]="classComputed()">{{ node().props.text }}</span>
+        <span [class]="classComputed()">{{ textProps().text }}</span>
       }
+
       @default {
-        <p [class]="classComputed()">{{ node().props.text }}</p>
+        <p [class]="classComputed()">{{ textProps().text }}</p>
       }
     }
   }
 
   @case ('image') {
     <img
-      [src]="node().props.src"
-      [alt]="node().props.alt || ''"
+      [src]="imageProps().src"
+      [alt]="imageProps().alt || ''"
       [class]="classComputed()"
-      [style]="getImageStyles()"
+      [style]="imageStyles()"
     />
   }
 
   @case ('button') {
-    @if (node().props.href) {
+    @if (buttonProps().href) {
       <a
-        [href]="node().props.href"
-        [class]="getButtonClasses()"
+        [href]="buttonProps().href"
+        [class]="buttonClasses()"
         (click)="handleAction($event, 'click')"
       >
-        {{ node().props.label }}
+        {{ buttonProps().label }}
       </a>
     } @else {
-      <button
-        [class]="getButtonClasses()"
-        (click)="handleAction($event, 'click')"
-      >
-        {{ node().props.label }}
+      <button [class]="buttonClasses()" (click)="handleAction($event, 'click')">
+        {{ buttonProps().label }}
       </button>
     }
   }
 
   @case ('icon') {
-    <i [class]="getIconClasses()" [attr.aria-label]="node().props.name"></i>
+    <i [class]="iconClasses()" [attr.aria-label]="iconProps().name"></i>
   }
 
   @case ('spacer') {
-    <div [class]="classComputed()" [style]="getSpacerStyles()"></div>
+    <div [class]="classComputed()" [style]="spacerStyles()"></div>
   }
 
   @case ('divider') {
-    <hr [class]="classComputed()" [style]="getDividerStyles()" />
+    <hr [class]="classComputed()" [style]="dividerStyles()" />
   }
 
-  @case ('widget') {
-    <div [class]="classComputed()">
-      <!-- Widget rendering would go here based on library and component -->
-      <div class="widget-placeholder">
-        {{ node().widget.library }}: {{ node().widget.component }}
-      </div>
-      @for (child of node().children; track child.id) {
-        <lib-node-renderer [node]="child" />
-      }
-    </div>
-  }
-
-  @case ('component') {
-    <div [class]="classComputed()">
-      <!-- Component instance rendering would go here -->
-      <div class="component-placeholder">Component: {{ node().ref }}</div>
-      @if (node().slots) {
-        @for (slot of getSlotEntries(); track slot.key) {
-          <div [attr.data-slot]="slot.key">
-            @for (child of slot.value; track child.id) {
-              <lib-node-renderer [node]="child" />
-            }
-          </div>
-        }
-      }
-    </div>
-  }
-
-  @case ('repeater') {
-    <div [class]="classComputed()">
-      <!-- Repeater rendering would go here with data binding -->
-      <div class="repeater-placeholder">
-        Repeater: {{ node().bindings.collection }}
-      </div>
-      <lib-node-renderer [node]="node().template" />
-    </div>
-  }
+  <!-- @TODO: Implement widget rendering -->
+  <!-- @TODO: Implement component instance rendering -->
+  <!-- @TODO: Implement repeater rendering -->
 
   @default {
     <span [class]="classComputed()">Unknown node type: {{ node().type }}</span>
