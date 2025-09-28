@@ -14,7 +14,37 @@ import {
   BORDER_STYLE_MAP,
   TEXT_ALIGN_MAP,
 } from './style-tw.maps';
-import { resolveToken, twValueOrArbitrary } from './tokens-resolver';
+import { resolveToken } from './tokens-resolver';
+import {
+  GAP_CATALOG,
+  PADDING_CATALOG,
+  PADDING_X_CATALOG,
+  PADDING_Y_CATALOG,
+  PADDING_TOP_CATALOG,
+  PADDING_RIGHT_CATALOG,
+  PADDING_BOTTOM_CATALOG,
+  PADDING_LEFT_CATALOG,
+  FONT_SIZE_CATALOG,
+  FONT_WEIGHT_CATALOG,
+  LINE_HEIGHT_CATALOG,
+  LETTER_SPACING_CATALOG,
+  BORDER_WIDTH_CATALOG,
+  BORDER_RADIUS_CATALOG,
+  OPACITY_CATALOG,
+  WIDTH_CATALOG,
+  HEIGHT_CATALOG,
+  MIN_WIDTH_CATALOG,
+  MAX_WIDTH_CATALOG,
+  MIN_HEIGHT_CATALOG,
+  MAX_HEIGHT_CATALOG,
+  GRID_COLS_CATALOG,
+  FONT_FAMILY_CATALOG,
+} from './style-tw.catalogs';
+import {
+  getCSSVariableClass,
+  styleToCSSVariables,
+  formatCSSVariables,
+} from './css-variables';
 
 /**
  * Order of CSS class buckets for consistent output ordering
@@ -135,11 +165,18 @@ export class StyleTw {
 
     if (style.display === 'grid') {
       if (typeof style.columns === 'number' && style.columns > 0) {
-        out.push(`grid-cols-${style.columns}`);
+        const gridColsClass =
+          GRID_COLS_CATALOG[style.columns as keyof typeof GRID_COLS_CATALOG] ??
+          null;
+        if (gridColsClass) {
+          out.push(gridColsClass);
+        } else {
+          out.push(`grid-cols-[${style.columns}]`);
+        }
       }
 
       if (style.gridTemplateColumns) {
-        out.push(`grid-cols-[${style.gridTemplateColumns}]`);
+        out.push(getCSSVariableClass('gridTemplateColumns'));
       }
     }
 
@@ -149,8 +186,8 @@ export class StyleTw {
   /**
    * Maps spacing properties (gap, padding) to Tailwind CSS classes
    *
-   * Optimizes padding by collapsing symmetric values into shorthand classes
-   * (e.g., p-4 instead of pt-4 pr-4 pb-4 pl-4)
+   * Uses predefined catalogs for common values and CSS variables for dynamic values.
+   * Optimizes padding by collapsing symmetric values into shorthand classes.
    *
    * @param style - Style object containing spacing properties
    * @returns Array of Tailwind CSS classes for spacing
@@ -159,10 +196,14 @@ export class StyleTw {
     const out: string[] = [];
 
     if (style.gap != null) {
-      const gap = twValueOrArbitrary('gap', style.gap, { allowZero: true });
-
-      if (gap) {
-        out.push(gap);
+      // Try catalog first, then CSS variable
+      const gapClass =
+        GAP_CATALOG[style.gap as keyof typeof GAP_CATALOG] ?? null;
+      if (gapClass) {
+        out.push(gapClass);
+      } else {
+        // Use CSS variable for dynamic values
+        out.push(getCSSVariableClass('gap'));
       }
     }
 
@@ -180,37 +221,81 @@ export class StyleTw {
         top === right && right === bottom && bottom === left && top != null;
 
       if (allEq) {
-        const c = twValueOrArbitrary('p', top, { allowZero: true });
-
-        if (c) {
-          out.push(c);
+        // All padding values are equal
+        const pClass =
+          PADDING_CATALOG[top as keyof typeof PADDING_CATALOG] ?? null;
+        if (pClass) {
+          out.push(pClass);
+        } else {
+          out.push(getCSSVariableClass('padding'));
         }
       } else {
         const xSym = right != null && left === right;
         const ySym = top != null && bottom === top;
 
         if (xSym) {
-          const c = twValueOrArbitrary('px', right, { allowZero: true });
-
-          if (c) {
-            out.push(c);
+          // Horizontal padding is symmetric
+          const pxClass =
+            PADDING_X_CATALOG[right as keyof typeof PADDING_X_CATALOG] ?? null;
+          if (pxClass) {
+            out.push(pxClass);
+          } else {
+            out.push(getCSSVariableClass('paddingX'));
           }
         } else {
-          if (top != null)
-            out.push(twValueOrArbitrary('pt', top, { allowZero: true })!);
-          if (right != null)
-            out.push(twValueOrArbitrary('pr', right, { allowZero: true })!);
-          if (bottom != null)
-            out.push(twValueOrArbitrary('pb', bottom, { allowZero: true })!);
-          if (left != null)
-            out.push(twValueOrArbitrary('pl', left, { allowZero: true })!);
+          // Individual padding values
+          if (top != null) {
+            const ptClass =
+              PADDING_TOP_CATALOG[top as keyof typeof PADDING_TOP_CATALOG] ??
+              null;
+            if (ptClass) {
+              out.push(ptClass);
+            } else {
+              out.push(getCSSVariableClass('paddingTop'));
+            }
+          }
+          if (right != null) {
+            const prClass =
+              PADDING_RIGHT_CATALOG[
+                right as keyof typeof PADDING_RIGHT_CATALOG
+              ] ?? null;
+            if (prClass) {
+              out.push(prClass);
+            } else {
+              out.push(getCSSVariableClass('paddingRight'));
+            }
+          }
+          if (bottom != null) {
+            const pbClass =
+              PADDING_BOTTOM_CATALOG[
+                bottom as keyof typeof PADDING_BOTTOM_CATALOG
+              ] ?? null;
+            if (pbClass) {
+              out.push(pbClass);
+            } else {
+              out.push(getCSSVariableClass('paddingBottom'));
+            }
+          }
+          if (left != null) {
+            const plClass =
+              PADDING_LEFT_CATALOG[left as keyof typeof PADDING_LEFT_CATALOG] ??
+              null;
+            if (plClass) {
+              out.push(plClass);
+            } else {
+              out.push(getCSSVariableClass('paddingLeft'));
+            }
+          }
         }
 
         if (ySym) {
-          const c = twValueOrArbitrary('py', top, { allowZero: true });
-
-          if (c) {
-            out.push(c);
+          // Vertical padding is symmetric
+          const pyClass =
+            PADDING_Y_CATALOG[top as keyof typeof PADDING_Y_CATALOG] ?? null;
+          if (pyClass) {
+            out.push(pyClass);
+          } else {
+            out.push(getCSSVariableClass('paddingY'));
           }
         }
       }
@@ -222,7 +307,8 @@ export class StyleTw {
   /**
    * Maps sizing properties to Tailwind CSS classes
    *
-   * Handles width/height modes, dimensions, min/max constraints, and flex grow/shrink
+   * Uses predefined catalogs for common values and CSS variables for dynamic values.
+   * Handles width/height modes, dimensions, min/max constraints, and flex grow/shrink.
    *
    * @param style - Style object containing sizing properties
    * @returns Array of Tailwind CSS classes for sizing
@@ -232,10 +318,6 @@ export class StyleTw {
 
     if (style.widthMode) {
       const m = SIZE_MODE_MAP[style.widthMode];
-
-      if (m?.w) {
-        out.push(m.w);
-      }
 
       if (m?.w) {
         out.push(m.w);
@@ -250,19 +332,66 @@ export class StyleTw {
       }
     }
 
-    const WH = [
-      ['w', style.w],
-      ['h', style.h],
-      ['min-w', style.minW],
-      ['max-w', style.maxW],
-      ['min-h', style.minH],
-      ['max-h', style.maxH],
-    ] as const;
+    // Handle width/height with catalogs and CSS variables
+    if (style.w != null) {
+      const wClass =
+        WIDTH_CATALOG[style.w as keyof typeof WIDTH_CATALOG] ?? null;
+      if (wClass) {
+        out.push(wClass);
+      } else {
+        out.push(getCSSVariableClass('width'));
+      }
+    }
 
-    for (const [base, val] of WH) {
-      if (val != null) {
-        const cls = twValueOrArbitrary(base, val, { allowZero: true });
-        if (cls) out.push(cls);
+    if (style.h != null) {
+      const hClass =
+        HEIGHT_CATALOG[style.h as keyof typeof HEIGHT_CATALOG] ?? null;
+      if (hClass) {
+        out.push(hClass);
+      } else {
+        out.push(getCSSVariableClass('height'));
+      }
+    }
+
+    if (style.minW != null) {
+      const minWClass =
+        MIN_WIDTH_CATALOG[style.minW as keyof typeof MIN_WIDTH_CATALOG] ?? null;
+      if (minWClass) {
+        out.push(minWClass);
+      } else {
+        out.push(getCSSVariableClass('minWidth'));
+      }
+    }
+
+    if (style.maxW != null) {
+      const maxWClass =
+        MAX_WIDTH_CATALOG[style.maxW as keyof typeof MAX_WIDTH_CATALOG] ?? null;
+      if (maxWClass) {
+        out.push(maxWClass);
+      } else {
+        out.push(getCSSVariableClass('maxWidth'));
+      }
+    }
+
+    if (style.minH != null) {
+      const minHClass =
+        MIN_HEIGHT_CATALOG[style.minH as keyof typeof MIN_HEIGHT_CATALOG] ??
+        null;
+      if (minHClass) {
+        out.push(minHClass);
+      } else {
+        out.push(getCSSVariableClass('minHeight'));
+      }
+    }
+
+    if (style.maxH != null) {
+      const maxHClass =
+        MAX_HEIGHT_CATALOG[style.maxH as keyof typeof MAX_HEIGHT_CATALOG] ??
+        null;
+      if (maxHClass) {
+        out.push(maxHClass);
+      } else {
+        out.push(getCSSVariableClass('maxHeight'));
       }
     }
 
@@ -280,8 +409,8 @@ export class StyleTw {
   /**
    * Maps visual properties to Tailwind CSS classes
    *
+   * Uses predefined catalogs for common values and CSS variables for dynamic values.
    * Handles background colors, borders, border radius, shadows, and opacity.
-   * Supports design tokens and arbitrary values.
    *
    * @param style - Style object containing visual properties
    * @returns Array of Tailwind CSS classes for visual styling
@@ -295,7 +424,8 @@ export class StyleTw {
       if (token?.kind === 'tw') {
         out.push(`bg-${token.value}`);
       } else {
-        out.push(`bg-${token ? `[${token.value}]` : `[${style.bg}]`}`);
+        // Use CSS variable for dynamic background colors
+        out.push(getCSSVariableClass('backgroundColor'));
       }
     }
 
@@ -311,13 +441,14 @@ export class StyleTw {
       };
 
       if (typeof width === 'number') {
-        out.push(
-          width === 0
-            ? 'border-0'
-            : width === 1
-              ? 'border'
-              : `border-[${width}px]`,
-        );
+        const borderWidthClass =
+          BORDER_WIDTH_CATALOG[width as keyof typeof BORDER_WIDTH_CATALOG] ??
+          null;
+        if (borderWidthClass) {
+          out.push(borderWidthClass);
+        } else {
+          out.push(getCSSVariableClass('borderWidth'));
+        }
       } else if (typeof width === 'string') {
         out.push(`border-${width}`);
       } else {
@@ -338,7 +469,8 @@ export class StyleTw {
         if (c?.kind === 'tw') {
           out.push(`border-${c.value}`);
         } else {
-          out.push(`border-${c ? `[${c.value}]` : `[${color}]`}`);
+          // Use CSS variable for dynamic border colors
+          out.push(getCSSVariableClass('borderColor'));
         }
       }
     }
@@ -348,7 +480,15 @@ export class StyleTw {
       if (r?.kind === 'tw') {
         out.push(`rounded-${r.value}`);
       } else if (typeof style.radius === 'number') {
-        out.push(`rounded-[${style.radius}px]`);
+        const radiusClass =
+          BORDER_RADIUS_CATALOG[
+            style.radius as keyof typeof BORDER_RADIUS_CATALOG
+          ] ?? null;
+        if (radiusClass) {
+          out.push(radiusClass);
+        } else {
+          out.push(getCSSVariableClass('borderRadius'));
+        }
       } else {
         out.push(`rounded-[${r ? r.value : style.radius}]`);
       }
@@ -359,14 +499,20 @@ export class StyleTw {
       if (s?.kind === 'tw') {
         out.push(`shadow-${s.value}`);
       } else {
-        out.push(`shadow-${s ? `[${s.value}]` : `[${style.shadow}]`}`);
+        // Use CSS variable for dynamic shadows
+        out.push(getCSSVariableClass('boxShadow'));
       }
     }
 
     if (typeof style.opacity === 'number') {
       const pct = Math.round(style.opacity * 100);
-
-      out.push(pct % 5 === 0 ? `opacity-${pct}` : `opacity-[${style.opacity}]`);
+      const opacityClass =
+        OPACITY_CATALOG[pct as keyof typeof OPACITY_CATALOG] ?? null;
+      if (opacityClass) {
+        out.push(opacityClass);
+      } else {
+        out.push(getCSSVariableClass('opacity'));
+      }
     }
 
     return out;
@@ -375,6 +521,7 @@ export class StyleTw {
   /**
    * Maps typography properties to Tailwind CSS classes
    *
+   * Uses predefined catalogs for common values and CSS variables for dynamic values.
    * Handles text alignment, font families, font sizes, font weights,
    * line height, and letter spacing.
    *
@@ -393,42 +540,79 @@ export class StyleTw {
       if (r?.kind === 'tw') {
         out.push(`font-${r.value}`);
       } else {
-        out.push(`font-${r ? `[${r.value}]` : `[${style.font}]`}`);
+        const fontFamilyClass =
+          FONT_FAMILY_CATALOG[
+            String(style.font) as keyof typeof FONT_FAMILY_CATALOG
+          ] ?? null;
+        if (fontFamilyClass) {
+          out.push(fontFamilyClass);
+        } else {
+          out.push(getCSSVariableClass('fontFamily'));
+        }
       }
     }
 
     if (typeof style.size !== 'undefined') {
-      const v =
-        typeof style.size === 'number'
-          ? `text-[${style.size}px]`
-          : `text-[${style.size}]`;
-
-      out.push(v);
+      if (typeof style.size === 'number') {
+        const fontSizeClass =
+          FONT_SIZE_CATALOG[style.size as keyof typeof FONT_SIZE_CATALOG] ??
+          null;
+        if (fontSizeClass) {
+          out.push(fontSizeClass);
+        } else {
+          out.push(getCSSVariableClass('fontSize'));
+        }
+      } else {
+        out.push(`text-[${style.size}]`);
+      }
     }
 
     if (typeof style.weight !== 'undefined') {
-      const w =
-        typeof style.weight === 'number'
-          ? `font-[${style.weight}]`
-          : `font-${style.weight}`;
-
-      out.push(w);
+      if (typeof style.weight === 'number') {
+        const fontWeightClass =
+          FONT_WEIGHT_CATALOG[
+            style.weight as keyof typeof FONT_WEIGHT_CATALOG
+          ] ?? null;
+        if (fontWeightClass) {
+          out.push(fontWeightClass);
+        } else {
+          out.push(getCSSVariableClass('fontWeight'));
+        }
+      } else {
+        out.push(`font-${style.weight}`);
+      }
     }
 
     if (typeof style.lineHeight !== 'undefined') {
-      out.push(
-        typeof style.lineHeight === 'number'
-          ? `leading-[${style.lineHeight}px]`
-          : `leading-[${style.lineHeight}]`,
-      );
+      if (typeof style.lineHeight === 'number') {
+        const lineHeightClass =
+          LINE_HEIGHT_CATALOG[
+            style.lineHeight as keyof typeof LINE_HEIGHT_CATALOG
+          ] ?? null;
+        if (lineHeightClass) {
+          out.push(lineHeightClass);
+        } else {
+          out.push(getCSSVariableClass('lineHeight'));
+        }
+      } else {
+        out.push(`leading-[${style.lineHeight}]`);
+      }
     }
 
     if (typeof style.letterSpacing !== 'undefined') {
-      out.push(
-        typeof style.letterSpacing === 'number'
-          ? `tracking-[${style.letterSpacing}px]`
-          : `tracking-[${style.letterSpacing}]`,
-      );
+      if (typeof style.letterSpacing === 'string') {
+        const letterSpacingClass =
+          LETTER_SPACING_CATALOG[
+            style.letterSpacing as keyof typeof LETTER_SPACING_CATALOG
+          ] ?? null;
+        if (letterSpacingClass) {
+          out.push(letterSpacingClass);
+        } else {
+          out.push(getCSSVariableClass('letterSpacing'));
+        }
+      } else {
+        out.push(`tracking-[${style.letterSpacing}px]`);
+      }
     }
 
     return out;
@@ -537,11 +721,47 @@ export class StyleTw {
   }
 
   /**
+   * Converts Style properties to inline CSS styles with CSS variables
+   *
+   * This method extracts dynamic values from the Style object and converts them
+   * to CSS custom properties that can be used with Tailwind v4's CSS variable classes.
+   *
+   * @param style - Style object to convert
+   * @returns Object containing CSS custom properties
+   *
+   * @example
+   * ```typescript
+   * const style = {
+   *   gap: 24,
+   *   padding: { top: 16, right: 16, bottom: 16, left: 16 },
+   *   size: 18,
+   *   lineHeight: 1.5
+   * };
+   *
+   * const cssVars = styleTw.styleToStyle(style);
+   * // Returns: {
+   * //   '--gap': '24px',
+   * //   '--padding-top': '16px',
+   * //   '--padding-right': '16px',
+   * //   '--padding-bottom': '16px',
+   * //   '--padding-left': '16px',
+   * //   '--font-size': '18px',
+   * //   '--line-height': '1.5px'
+   * // }
+   * ```
+   */
+  styleToStyle(style?: Style | null): Record<string, string> {
+    if (!style) {
+      return {};
+    }
+
+    return formatCSSVariables(styleToCSSVariables(style));
+  }
+
+  /**
    * Converts Style properties to inline CSS styles
    *
-   * Currently returns an empty object as this implementation
-   * prefers Tailwind utilities and arbitrary values over inline styles.
-   *
+   * @deprecated Use styleToStyle() instead for CSS variables support
    * @param _style - Style object (currently unused)
    * @returns Empty object (inline styles not implemented)
    */
