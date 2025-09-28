@@ -14,6 +14,10 @@ import { StyleTw } from '../style/style-tw';
   imports: [forwardRef(() => NodeRenderer)],
   templateUrl: './node-renderer.html',
   styleUrl: './node-renderer.css',
+  host: {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    '[style]': 'styleComputed()',
+  },
 })
 export class NodeRenderer {
   readonly styleTw = inject(StyleTw);
@@ -48,6 +52,10 @@ export class NodeRenderer {
     }
 
     return styles.join('; ');
+  });
+
+  readonly styleComputed = computed(() => {
+    return this.styleTw.styleToStyle(this.node().style);
   });
 
   readonly buttonClasses = computed(() => {

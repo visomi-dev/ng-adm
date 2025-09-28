@@ -103,6 +103,7 @@ export function extractCSSVariables(style: Style): Record<string, string> {
 
   // Padding
   if (style.padding) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const p = style.padding as any;
     if (typeof p === 'object') {
       if (p.top != null) variables[CSS_VARIABLES.paddingTop] = `${p.top}px`;
@@ -174,6 +175,7 @@ export function extractCSSVariables(style: Style): Record<string, string> {
     variables[CSS_VARIABLES.backgroundColor] = String(style.bg);
   }
   if (style.border && typeof style.border === 'object') {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const border = style.border as any;
     if (border.width != null) {
       variables[CSS_VARIABLES.borderWidth] =
