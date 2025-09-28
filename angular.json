@@ -238,6 +238,99 @@
           }
         }
       }
+    },
+    "website-example": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/website-example",
+      "sourceRoot": "projects/website-example/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "projects/website-example/src/main.ts",
+            "tsConfig": "projects/website-example/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/website-example/public"
+              }
+            ],
+            "styles": [
+              "projects/website-example/src/styles.css"
+            ],
+            "server": "projects/website-example/src/main.server.ts",
+            "outputMode": "server",
+            "ssr": {
+              "entry": "projects/website-example/src/server.ts"
+            }
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "website-example:build:production"
+            },
+            "development": {
+              "buildTarget": "website-example:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular/build:extract-i18n"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "projects/website-example/tsconfig.spec.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/website-example/public"
+              }
+            ],
+            "styles": [
+              "projects/website-example/src/styles.css"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/website-example/**/*.ts",
+              "projects/website-example/**/*.html"
+            ],
+            "eslintConfig": "projects/website-example/eslint.config.js"
+          }
+        }
+      }
     }
   },
   "cli": {

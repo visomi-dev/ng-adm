@@ -20,6 +20,16 @@ export class NodeRenderer {
 
   readonly node = input.required<Node>();
 
+  readonly children = computed(() => {
+    const node = this.node();
+
+    if (node.type !== 'stack' && node.type !== 'grid' && node.type !== 'box') {
+      return [];
+    }
+
+    return node.children;
+  });
+
   readonly classComputed = computed(() => {
     return this.styleTw.styleToClass(this.node().style);
   });
@@ -98,15 +108,15 @@ export class NodeRenderer {
       : 'width: 100%; height: 1px; border-top: 1px solid #e5e7eb;';
   });
 
-  readonly slotEntries = computed(() => {
-    const node = this.node();
+  // readonly slotEntries = computed(() => {
+  //   const node = this.node();
 
-    if (node.type !== 'component' || !node.slots) {
-      return [];
-    }
+  //   if (node.type !== 'component' || !node.slots) {
+  //     return [];
+  //   }
 
-    return Object.entries(node.slots).map(([key, value]) => ({ key, value }));
-  });
+  //   return Object.entries(node.slots).map(([key, value]) => ({ key, value }));
+  // });
 
   readonly textProps = computed(() => {
     const node = this.node();

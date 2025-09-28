@@ -65,6 +65,12 @@
     },
     {
       "path": "./projects/page-builder/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/website-example/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/website-example/tsconfig.spec.json"
     }
   ]
 }

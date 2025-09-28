@@ -12,7 +12,7 @@ export const spacingSchema = z.object({
 });
 
 export const styleSchema = z.object({
-  display: z.enum(['flex', 'grid', 'block']).default('flex'),
+  display: z.enum(['flex', 'grid', 'block']).optional(),
   flexDirection: z.enum(['row', 'column']).optional(),
   alignItems: z
     .enum(['start', 'center', 'end', 'stretch', 'baseline'])

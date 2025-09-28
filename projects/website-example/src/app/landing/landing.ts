@@ -1,30 +1,29 @@
 import { Component, signal } from '@angular/core';
 import { type PageSchema, type Node } from '@ng-adm/core';
-
-import { PageRenderer } from '../page-renderer/page-renderer';
+import { PageRenderer } from '@ng-adm/ui';
 
 @Component({
-  selector: 'lib-page-example',
+  selector: 'app-landing',
   imports: [PageRenderer],
-  templateUrl: './page-example.html',
-  styleUrl: './page-example.css',
+  templateUrl: './landing.html',
+  styleUrl: './landing.css',
 })
-export class PageExample {
+export class Landing {
   readonly examplePage = signal<PageSchema>(this.createExamplePage());
 
   private createExamplePage(): PageSchema {
     return {
-      slug: 'example-page',
+      slug: 'landing',
       locale: 'es',
       status: 'published',
       seo: {
-        title: 'Página de Ejemplo - Mi Page Builder',
+        title: 'Landing - Mi Page Builder',
         description:
-          'Esta es una página de ejemplo creada con nuestro page builder estilo Wix/Figma',
-        canonical: 'https://example.com/example-page',
+          'Esta es una página de landing creada con nuestro page builder estilo Wix/Figma',
+        canonical: 'https://example.com/landing',
         og: {
           image: 'https://example.com/og-image.jpg',
-          url: 'https://example.com/example-page',
+          url: 'https://example.com/landing',
           type: 'website',
         },
       },

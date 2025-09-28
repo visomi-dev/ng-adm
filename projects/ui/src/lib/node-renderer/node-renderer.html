@@ -1,7 +1,7 @@
 @switch (node().type) {
   @case ('stack') {
     <div [class]="classComputed()">
-      @for (child of node().children; track child.id) {
+      @for (child of children(); track child.id) {
         <lib-node-renderer [node]="child" />
       }
     </div>
@@ -9,7 +9,7 @@
 
   @case ('grid') {
     <div [class]="classComputed()">
-      @for (child of node().children; track child.id) {
+      @for (child of children(); track child.id) {
         <lib-node-renderer [node]="child" />
       }
     </div>
@@ -17,7 +17,7 @@
 
   @case ('box') {
     <div [class]="classComputed()">
-      @for (child of node().children; track child.id) {
+      @for (child of children(); track child.id) {
         <lib-node-renderer [node]="child" />
       }
     </div>

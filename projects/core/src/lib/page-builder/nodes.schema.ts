@@ -29,7 +29,6 @@ export type BoxNode = BaseNodeSchema & { type: 'box'; children: $Node[] };
 export type TextNode = BaseNodeSchema & {
   type: 'text';
   props: { text: string; semantic?: 'p' | 'span' | 'h1' | 'h2' | 'h3' | 'h4' };
-  children?: never[];
 };
 
 export type ImageNode = BaseNodeSchema & {
@@ -89,7 +88,7 @@ export type ComponentInstanceNode = BaseNodeSchema & {
   slots?: Record<string, $Node[]>;
 };
 
-export type $Node = (
+export type $Node =
   | StackNode
   | GridNode
   | BoxNode
@@ -101,10 +100,7 @@ export type $Node = (
   | DividerNode
   | RepeaterNode
   | WidgetNode
-  | ComponentInstanceNode
-) & {
-  children?: $Node[];
-};
+  | ComponentInstanceNode;
 
 const makeStackNode = (node: z.ZodType<$Node>) =>
   baseNodeSchema.extend({
@@ -124,19 +120,16 @@ const makeBoxNode = (node: z.ZodType<$Node>) =>
     children: z.array(z.lazy(() => node)).default([]),
   });
 
-const textNode = baseNodeSchema
-  .extend({
-    type: z.literal('text'),
-    props: z.object({
-      text: z.string(),
-      semantic: z
-        .enum(['p', 'span', 'h1', 'h2', 'h3', 'h4'])
-        .optional()
-        .default('p'),
-    }),
-    children: z.array(z.never()).optional(),
-  })
-  .omit({ children: true });
+const textNode = baseNodeSchema.extend({
+  type: z.literal('text'),
+  props: z.object({
+    text: z.string(),
+    semantic: z
+      .enum(['p', 'span', 'h1', 'h2', 'h3', 'h4'])
+      .optional()
+      .default('p'),
+  }),
+});
 
 const imageNode = baseNodeSchema.extend({
   type: z.literal('image'),
@@ -226,4 +219,4 @@ export const nodeSchema: z.ZodType<$Node> = z.lazy(() =>
   ]),
 );
 
-export type Node = z.infer<typeof nodeSchema>;
+export type Node = $Node;
