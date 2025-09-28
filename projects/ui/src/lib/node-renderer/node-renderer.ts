@@ -80,7 +80,8 @@ export class NodeRenderer {
       return '';
     }
 
-    const size = node.props?.size || 16;
+    const size = node.props?.size ?? 16;
+
     return `height: ${size}px; width: 100%;`;
   });
 
@@ -90,7 +91,7 @@ export class NodeRenderer {
       return '';
     }
 
-    const orientation = node.props?.orientation || 'horizontal';
+    const orientation = node.props?.orientation ?? 'horizontal';
 
     return orientation === 'vertical'
       ? 'width: 1px; height: 100%; border-left: 1px solid #e5e7eb;'

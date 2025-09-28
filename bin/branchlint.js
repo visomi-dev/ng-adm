@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 
 const branchPattern =
-  /^(feat|fix|refactor|hotfix|reformat|optimise|enhance|ci|docs)\/[A-Z]{2,4}-[A-Za-z0-9]+\/.+$/i;
+  /^(feat|fix|refactor|hotfix|reformat|optimise|enhance|ci|docs)\/(?:[A-Z]{2,4}-)?[A-Za-z0-9]+(?:\/.+)?$/i;
 const mainBranch = 'main';
 const developBranch = 'develop';
 
